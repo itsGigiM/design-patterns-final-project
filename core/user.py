@@ -32,4 +32,4 @@ class User(IUser):
 #         if users_repository.contains(email):
 #             return USER_ALREADY_EXISTS_ERROR
 #         users_repository.add_user(email)
-#         return uuid.uuid4()
+#         return User(api_key=uuid.uuid4())
