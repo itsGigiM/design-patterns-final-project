@@ -23,7 +23,6 @@ class IWallet(Protocol):
 @dataclass
 class Wallet(IWallet):
     address: UUID
-
     api_key: UUID
     amount: float
 
