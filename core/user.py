@@ -1,6 +1,9 @@
 import uuid
+from abc import ABC, abstractmethod
 from asyncio import Protocol
 from dataclasses import dataclass
+from core.repository_interface.user_repository_interface import IUserRepository
+from core.constants import USER_ALREADY_EXISTS_ERROR
 
 
 @dataclass
@@ -13,20 +16,21 @@ class User(IUser):
     api_key: uuid.UUID
 
 
-# class IUserFactory(ABC):
-#     users_repository: UsersRepository
-#
-#     @abstractmethod
-#     def generate_user(self, email: str):
-#         pass
-#
-#
-# @dataclass()
-# class UserFactory(IUserFactory):
-#     users_repository: UsersRepository
-#
-#     def generate_user(self, email: str):
-#         if users_repository.contains(email):
-#             return USER_ALREADY_EXISTS_ERROR
-#         users_repository.add_user(email)
-#         return User(api_key=uuid.uuid4())
+@dataclass
+class IUserFactory(ABC):
+    user_repository: IUserRepository
+
+    @abstractmethod
+    def generate_user(self, email: str):
+        pass
+
+
+@dataclass()
+class UserFactory(IUserFactory):
+    user_repository: IUserRepository
+
+    def generate_user(self, email: str):
+        if self.user_repository.exists_user(email):
+            raise Exception("User already exists")
+        self.user_repository.create_user(email)
+        return User(api_key=uuid.uuid4())
