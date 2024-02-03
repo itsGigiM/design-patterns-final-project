@@ -3,7 +3,7 @@ mypy
 flake8
 isort
 
-pytest
+pytest~=8.0.0
 pytest-cov
 
 httpx
@@ -13,3 +13,4 @@ pydantic
 typer
 uvicorn
 python-dotenv
+requests~=2.31.0
