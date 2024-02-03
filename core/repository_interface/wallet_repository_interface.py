@@ -14,6 +14,9 @@ class IWalletRepository(Protocol):
     def get_balance(self, address: str) -> int:
         pass
 
+    def get_user(self, address: str) -> str:
+        pass
+
     def get_wallet(self, address: str) -> Optional[Any]:
         pass
 

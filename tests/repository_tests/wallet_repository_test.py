@@ -46,6 +46,12 @@ def test_get_balance(wallet_repo: SQLWalletRepository) -> None:
     assert wallet_repo.get_balance(address) == 1
 
 
+def test_get_user(wallet_repo: SQLWalletRepository) -> None:
+    address = "wallet_address5"
+    wallet_repo.create_wallet("user5", address)
+    assert wallet_repo.get_user(address) == "user5"
+
+
 def test_get_wallet(wallet_repo: SQLWalletRepository) -> None:
     address = "wallet_address6"
     user = "user6"

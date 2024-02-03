@@ -51,6 +51,13 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
             raise Exception("Could not get balance for the wallet")
         return data[0][0]
 
+    def get_user(self, address: str) -> str:
+        select_query = "SELECT user_id FROM wallet WHERE address = ?"
+        data = self.conn.search(select_query, (address,))
+        if data is None:
+            raise Exception("Could not get user for the wallet")
+        return data[0][0]
+
     def get_wallet(self, address: str) -> Optional[Any]:
         select_query = "SELECT * FROM wallet WHERE address = ?"
         wallet = self.conn.search(select_query, (address,))
