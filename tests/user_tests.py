@@ -1,7 +1,9 @@
 import pytest
 import uuid
 
-from core.user import User, IUser
+from core.repository_interface.user_repository_interface import IUserRepository
+from core.user import User, IUser, UserFactory
+from infra.repository.user_repository import InMemoryUserRepository, SQLUserRepository
 
 
 def test_user_creation():
@@ -19,3 +21,26 @@ def test_users_unique_api_key():
     user_b = User(api_key=api_key2)
 
     assert user_a != user_b
+
+
+def test_generate_user_success():
+    user_repository = InMemoryUserRepository()
+    user_factory = UserFactory(user_repository)
+    email = "ggg@gmail.com"
+
+    result = user_factory.generate_user(email)
+
+    assert isinstance(result, User)
+    assert user_repository.exists_user(email)
+    assert user_repository.get_wallet_number(email) == 0
+
+
+def test_generate_user_already_exists():
+    user_repository = InMemoryUserRepository()
+    user_factory = UserFactory(user_repository)
+    email = "ggg@gmail.com"
+
+    user_factory.generate_user(email)
+
+    with pytest.raises(Exception):
+        user_factory.generate_user(email)

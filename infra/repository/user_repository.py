@@ -46,3 +46,29 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
         select_query = "SELECT wallet_number FROM user WHERE LOWER(email) = LOWER(?)"
         res = self.conn.search(select_query, params=(email,))
         return res[0][0]
+
+
+class InMemoryUserRepository(IUserRepository, ICreateDatabase):
+    memory_dict: dict
+
+    def __init__(self):
+        self.memory_dict = {}
+
+    def create_user(self, email: str) -> str:
+        if self.exists_user(email):
+            raise Exception("User already exists")
+        self.memory_dict[email] = 0
+        return email
+
+    def exists_user(self, email: str) -> bool:
+        return email in self.memory_dict
+
+    def set_wallet_number(self, email: str, wallet_num: int) -> None:
+        if not self.exists_user(email):
+            raise Exception("Cannot find user with this email")
+        self.memory_dict[email] = wallet_num
+
+    def get_wallet_number(self, email: str) -> Any:
+        if not self.exists_user(email):
+            raise Exception("Cannot find user with this email")
+        return self.memory_dict[email]
