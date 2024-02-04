@@ -11,7 +11,7 @@ from typing import Any, Protocol
 
 class ITransactionRepository(Protocol):
     def create_Transaction(
-        self, from_wallet: str, to_wallet: str, sent_amount: int, fee_amount: int
+        self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
     ) -> bool:
         pass
 
@@ -21,5 +21,5 @@ class ITransactionRepository(Protocol):
     def get_wallet_all_transactions(self, wallet: str) -> Any:
         pass
 
-    def get_statistics(self) -> dict[str, int]:
+    def get_statistics(self) -> dict[str, float]:
         pass
