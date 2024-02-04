@@ -1,8 +1,55 @@
+import copy
 from typing import Any, Optional
+from uuid import UUID
 
+from core.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
+from core.wallet import Wallet
+
+
+class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
+
+    wallets: dict[str, Wallet]
+    converter: IBTCtoUSDConverter
+
+    def __init__(self, converter: IBTCtoUSDConverter):
+        self.converter = converter
+
+    def drop_table(self) -> None:
+        wallets = None
+
+    def create_table(self) -> None:
+        wallets: dict[str, Wallet] = dict()
+
+    def create_wallet(self, user: str, address: str, btc_balance: int = 1) -> bool:
+        new_wallet = Wallet(address=address, amount=btc_balance, api_key=user)
+        self.wallets[address] = new_wallet
+
+    def exists_wallet(self, address: str) -> bool:
+        return address in self.wallets
+
+    def change_balance(self, address: str, balance_change: int) -> None:
+        wallet = self.wallets[address]
+        wallet.amount = balance_change
+
+    def get_balance(self, address: str) -> int:
+        return self.wallets[address].amount
+
+    def get_user(self, address: str) -> str:
+        return self.wallets[address].api_key
+
+    def get_wallet(self, address: str) -> Optional[Any]:
+        our_wallet = self.wallets[address]
+        return copy.copy(our_wallet)
+
+    def get_wallets(self, user: str) -> Any:
+        lst = list()
+        for address, wallet in self.wallets.items():
+            if wallet.api_key == user:
+                lst.append(wallet)
+        return lst
 
 
 class SQLWalletRepository(IWalletRepository, ICreateDatabase):
