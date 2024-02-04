@@ -48,3 +48,8 @@ class Wallet(IWallet):
     #         "balance_btc": str(self.amount),
     #         "balance_usd": str(balance_in_usd),
     #     }
+
+
+@dataclass
+class WalletUSD(Wallet):
+    usd_amount: float
