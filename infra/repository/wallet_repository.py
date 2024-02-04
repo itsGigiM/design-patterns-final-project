@@ -1,6 +1,5 @@
 import copy
 from typing import Any, Optional
-from uuid import UUID
 
 from core.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.repository_interface.create_database_repository import ICreateDatabase
