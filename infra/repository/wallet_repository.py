@@ -17,10 +17,10 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
         self.converter = converter
 
     def drop_table(self) -> None:
-        wallets = None
+        self.wallets = None
 
     def create_table(self) -> None:
-        wallets: dict[str, Wallet] = dict()
+        self.wallets: dict[str, Wallet] = dict()
 
     def create_wallet(self, user: str, address: str, btc_balance: int = 1) -> bool:
         new_wallet = Wallet(address=address, amount=btc_balance, api_key=user)
