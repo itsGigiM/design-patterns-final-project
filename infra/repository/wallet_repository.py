@@ -1,5 +1,6 @@
 from typing import Any, Optional
 
+from core.constants import BTC_STARTING_BALANCE
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
@@ -24,7 +25,9 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
             )"""
         self.conn.execute_query(query)
 
-    def create_wallet(self, user_id: str, address: str, btc_balance: int = 1) -> bool:
+    def create_wallet(
+        self, user_id: str, address: str, btc_balance: int = BTC_STARTING_BALANCE
+    ) -> bool:
         query = "INSERT INTO wallet(user_id, address, btc_balance) VALUES (?, ?, ?)"
         params = (user_id, address, btc_balance)
         if self.conn.execute_query(query, params) == 0:
@@ -51,7 +54,7 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
             raise Exception("Could not get balance for the wallet")
         return data[0][0]
 
-    def get_user(self, address: str) -> str:
+    def get_user(self, address: str) -> Any:
         select_query = "SELECT user_id FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
