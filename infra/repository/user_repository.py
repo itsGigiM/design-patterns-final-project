@@ -49,9 +49,9 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
 
 
 class InMemoryUserRepository(IUserRepository, ICreateDatabase):
-    memory_dict: dict
+    memory_dict: dict[Any, Any]
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.memory_dict = {}
 
     def create_user(self, email: str) -> str:
