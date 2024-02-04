@@ -1,9 +1,58 @@
+import copy
+import uuid
 from typing import Any, Optional
 
-from core.constants import BTC_STARTING_BALANCE
+from core.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
+from core.wallet import Wallet
+
+
+class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
+
+    wallets: dict[str, Wallet]
+    converter: IBTCtoUSDConverter
+
+    def __init__(self, converter: IBTCtoUSDConverter):
+        self.converter = converter
+
+    def drop_table(self) -> None:
+        self.wallets = {}
+
+    def create_table(self) -> None:
+        self.wallets: dict[str, Wallet] = dict()
+
+    def create_wallet(self, user: str, address: str, btc_balance: float = 1) -> bool:
+        new_wallet = Wallet(
+            address=uuid.UUID(address), amount=btc_balance, api_key=uuid.UUID(user)
+        )
+        self.wallets[address] = new_wallet
+        return True
+
+    def exists_wallet(self, address: str) -> bool:
+        return address in self.wallets
+
+    def change_balance(self, address: str, balance_change: float) -> None:
+        wallet = self.wallets[address]
+        wallet.amount = balance_change
+
+    def get_balance(self, address: str) -> float:
+        return self.wallets[address].amount
+
+    def get_user(self, address: str) -> str:
+        return str(self.wallets[address].api_key)
+
+    def get_wallet(self, address: str) -> Optional[Any]:
+        our_wallet = self.wallets[address]
+        return copy.copy(our_wallet)
+
+    def get_wallets(self, user: str) -> Any:
+        lst = list()
+        for address, wallet in self.wallets.items():
+            if wallet.api_key == user:
+                lst.append(wallet)
+        return lst
 
 
 class SQLWalletRepository(IWalletRepository, ICreateDatabase):
@@ -25,9 +74,7 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
             )"""
         self.conn.execute_query(query)
 
-    def create_wallet(
-        self, user_id: str, address: str, btc_balance: int = BTC_STARTING_BALANCE
-    ) -> bool:
+    def create_wallet(self, user_id: str, address: str, btc_balance: float = 1) -> bool:
         query = "INSERT INTO wallet(user_id, address, btc_balance) VALUES (?, ?, ?)"
         params = (user_id, address, btc_balance)
         if self.conn.execute_query(query, params) == 0:
@@ -40,7 +87,7 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         existing_unit = self.conn.search(select_query, params=(address,))
         return bool(existing_unit)
 
-    def change_balance(self, address: str, balance_change: int) -> None:
+    def change_balance(self, address: str, balance_change: float) -> None:
         query = "UPDATE wallet SET btc_balance = ? WHERE address = ?"
         params = (str(balance_change), address)
         if self.conn.execute_query(query, params) == 0:

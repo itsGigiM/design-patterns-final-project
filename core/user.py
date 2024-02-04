@@ -21,7 +21,7 @@ class IUserFactory(ABC):
     user_repository: IUserRepository
 
     @abstractmethod
-    def generate_user(self, email: str):
+    def generate_user(self, email: str) -> User:
         pass
 
 
@@ -29,7 +29,7 @@ class IUserFactory(ABC):
 class UserFactory(IUserFactory):
     user_repository: IUserRepository
 
-    def generate_user(self, email: str):
+    def generate_user(self, email: str) -> User:
         if self.user_repository.exists_user(email):
             raise Exception("User already exists")
         self.user_repository.create_user(email)
