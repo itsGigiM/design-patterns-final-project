@@ -29,9 +29,9 @@ class BTCtoUSDConverter(IBTCtoUSDConverter):
             # print(f"{amount_btc} BTC is equivalent to ${usd_value:.2f} USD")
             return float(btc_price)
         except (
-                requests.ConnectionError,
-                requests.Timeout,
-                requests.TooManyRedirects,
+            requests.ConnectionError,
+            requests.Timeout,
+            requests.TooManyRedirects,
         ) as e:
             print(e)
             return -1.0

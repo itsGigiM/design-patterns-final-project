@@ -1,5 +1,4 @@
-from typing import Any
-from typing import Protocol
+from typing import Any, Protocol
 
 from core.repository_interface.transaction_repository_interface import (
     ITransactionRepository,
@@ -10,7 +9,7 @@ from infra.fee_strategy import IFeeStrategy
 
 class ITransactionService(Protocol):
     def create_transaction(
-            self, from_wallet: str, to_wallet: str, amount_btc: float
+        self, from_wallet: str, to_wallet: str, amount_btc: float
     ) -> None:
         pass
 
@@ -26,17 +25,17 @@ class ITransactionService(Protocol):
 
 class TransactionService(ITransactionService):
     def __init__(
-            self,
-            transactions_repository: ITransactionRepository,
-            fee_strategy: IFeeStrategy,
-            wallets_repository: IWalletRepository,
+        self,
+        transactions_repository: ITransactionRepository,
+        fee_strategy: IFeeStrategy,
+        wallets_repository: IWalletRepository,
     ):
         self.transactions_repository = transactions_repository
         self.fee_strategy = fee_strategy
         self.wallets_repository = wallets_repository
 
     def create_transaction(
-            self, from_wallet: str, to_wallet: str, amount_btc: float
+        self, from_wallet: str, to_wallet: str, amount_btc: float
     ) -> None:
         from_wallet_owner = self.wallets_repository.get_user(from_wallet)
         to_wallet_owner = self.wallets_repository.get_user(to_wallet)
@@ -51,13 +50,15 @@ class TransactionService(ITransactionService):
     def get_transactions(self, api_key: str) -> list[Any]:
         lst = list()
         for w in self.wallets_repository.get_wallets(api_key):
-            for t in self.transactions_repository.get_wallet_all_transactions(str(w.address)):
+            for t in self.transactions_repository.get_wallet_all_transactions(
+                str(w.address)
+            ):
                 lst.append(t)
         return lst
 
-    def get_wallet_transactions(self, api_key: str, address: str) -> list[Any]:
+    def get_wallet_transactions(self, address: str) -> list[Any]:
         lst = list()
-        for t in self.transactions_repository.get_wallet_all_transactions(str(w.address)):
+        for t in self.transactions_repository.get_wallet_all_transactions(address):
             lst.append(t)
         return lst
 

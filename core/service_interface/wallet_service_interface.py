@@ -1,10 +1,10 @@
 import uuid
 from asyncio import Protocol
 
-from core.WalletToWalletUSDAdapter import IWalletToWalletUSDAdapter
 from core.constants import BTC_STARTING_BALANCE
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import WalletUSD
+from core.WalletToWalletUSDAdapter import IWalletToWalletUSDAdapter
 
 
 class IWalletService(Protocol):
@@ -21,7 +21,9 @@ class IWalletService(Protocol):
 class WalletService(IWalletService):
     wallet_rep: IWalletRepository
 
-    def __init__(self, wallet_repository: IWalletRepository, adapter: IWalletToWalletUSDAdapter):
+    def __init__(
+        self, wallet_repository: IWalletRepository, adapter: IWalletToWalletUSDAdapter
+    ):
         self.wallet_rep = wallet_repository
         self.adapter = adapter
 

@@ -54,6 +54,12 @@ class InMemoryUserRepository(IUserRepository, ICreateDatabase):
     def __init__(self) -> None:
         self.memory_dict = {}
 
+    def drop_table(self) -> None:
+        self.memory_dict = {}
+
+    def create_table(self) -> None:
+        self.memory_dict = {}
+
     def create_user(self, email: str) -> str:
         if self.exists_user(email):
             raise Exception("User already exists")
