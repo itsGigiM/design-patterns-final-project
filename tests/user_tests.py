@@ -1,9 +1,8 @@
 import pytest
 import uuid
 
-from core.repository_interface.user_repository_interface import IUserRepository
 from core.user import User, IUser, UserFactory
-from infra.repository.user_repository import InMemoryUserRepository, SQLUserRepository
+from infra.repository.user_repository import InMemoryUserRepository
 
 
 def test_user_creation():
@@ -26,7 +25,7 @@ def test_users_unique_api_key():
 def test_generate_user_success():
     user_repository = InMemoryUserRepository()
     user_factory = UserFactory(user_repository)
-    email = "ggg@gmail.com"
+    email = "gigiBandzia@gmail.com"
 
     result = user_factory.generate_user(email)
 
@@ -38,7 +37,7 @@ def test_generate_user_success():
 def test_generate_user_already_exists():
     user_repository = InMemoryUserRepository()
     user_factory = UserFactory(user_repository)
-    email = "ggg@gmail.com"
+    email = "gigiBandzia@gmail.com"
 
     user_factory.generate_user(email)
 
