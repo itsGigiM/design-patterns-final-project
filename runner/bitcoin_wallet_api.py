@@ -14,7 +14,7 @@ from core.service_interface.transaction_service_interface import TransactionServ
 from core.service_interface.user_service_interface import UserService
 from core.service_interface.wallet_service_interface import WalletService
 from core.user import UserFactory
-from core.WalletToWalletUSDAdapter import WalletToUSDWalletAdapter
+from core.walletToWalletUSDAdapter import WalletToUSDWalletAdapter
 from infra.fee_strategy import FeeStrategy
 from infra.repository.database_connection import DatabaseConnection
 from infra.repository.database_executor import DatabaseExecutor

@@ -1,10 +1,10 @@
 import uuid
-from asyncio import Protocol
+from typing import Protocol
 
-from core.constants import BTC_STARTING_BALANCE
+from core.constants import BTC_STARTING_BALANCE, DEFAULT_WALLET_BALANCE
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import WalletUSD
-from core.WalletToWalletUSDAdapter import IWalletToWalletUSDAdapter
+from core.walletToWalletUSDAdapter import IWalletToWalletUSDAdapter
 
 
 class IWalletService(Protocol):
@@ -35,7 +35,7 @@ class WalletService(IWalletService):
             return self.adapter.convert(wallet)
 
     def create_default_wallet(self, address: str, api_key: str) -> None:
-        self.wallet_rep.create_wallet(api_key, address, 0)
+        self.wallet_rep.create_wallet(api_key, address, DEFAULT_WALLET_BALANCE)
 
     def get_wallet(self, address: str) -> WalletUSD:
         wallet = self.wallet_rep.get_wallet(address=address)

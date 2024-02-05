@@ -1,10 +1,13 @@
 from typing import Protocol
 
-from core.wallet import Wallet
+from core.constants import BTC_STARTING_BALANCE
+from core.wallet import IWallet
 
 
 class IWalletRepository(Protocol):
-    def create_wallet(self, api_key: str, address: str, btc_balance: float = 1) -> bool:
+    def create_wallet(
+        self, api_key: str, address: str, btc_balance: float = BTC_STARTING_BALANCE
+    ) -> bool:
         pass
 
     def exists_wallet(self, address: str) -> bool:
@@ -19,8 +22,8 @@ class IWalletRepository(Protocol):
     def get_user(self, address: str) -> str:
         pass
 
-    def get_wallet(self, address: str) -> Wallet:
+    def get_wallet(self, address: str) -> IWallet:
         pass
 
-    def get_wallets(self, api_key: str) -> list[Wallet]:
+    def get_wallets(self, api_key: str) -> list[IWallet]:
         pass

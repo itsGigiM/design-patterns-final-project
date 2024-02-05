@@ -3,10 +3,16 @@ import uuid
 from typing import Any
 
 from core.BTCtoUSDconverter import IBTCtoUSDConverter
+from core.exceptions import (
+    CanNotGetUserError,
+    CanNotGetWalletBalanceError,
+    CanNotUpdateWalletBalanceError,
+    WalletDoesNotExistError,
+)
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
-from core.wallet import Wallet
+from core.wallet import Wallet, IWallet
 
 
 class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
@@ -47,7 +53,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
         return copy.copy(our_wallet)
 
     def get_wallets(self, api_key: str) -> list[Wallet]:
-        lst = list()
+        lst = []
         for address, wallet in self.wallets.items():
             if wallet.api_key == api_key:
                 lst.append(wallet)
@@ -90,28 +96,28 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         query = "UPDATE wallet SET btc_balance = ? WHERE address = ?"
         params = (str(balance_change), address)
         if self.conn.execute_query(query, params) == 0:
-            raise Exception("Cannot update the btc balance in wallet")
+            raise CanNotUpdateWalletBalanceError
         self.conn.commit()
 
     def get_balance(self, address: str) -> Any:
         select_query = "SELECT btc_balance FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise Exception("Could not get balance for the wallet")
+            raise CanNotGetWalletBalanceError
         return data[0][0]
 
     def get_user(self, address: str) -> Any:
         select_query = "SELECT api_key FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise Exception("Could not get user for the wallet")
+            raise CanNotGetUserError
         return data[0][0]
 
     def get_wallet(self, address: str) -> Wallet:
         select_query = "SELECT * FROM wallet WHERE address = ?"
         wallet = self.conn.search(select_query, (address,))
         if wallet is None:
-            raise Exception("Could not get balance for the wallet")
+            raise WalletDoesNotExistError
         w = wallet[0]
         return Wallet(w[1], w[0], w[2])
 
@@ -119,7 +125,7 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         select_query = "SELECT * FROM wallet WHERE api_key = ?"
         wallets = self.conn.search(select_query, (api_key,))
         if wallets is None:
-            raise Exception("Could not get balance for the wallet")
+            raise WalletDoesNotExistError
         lst = list()
         for w in wallets:
             lst.append(Wallet(w[1], w[0], w[2]))

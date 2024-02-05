@@ -1,6 +1,7 @@
 import uuid
 from typing import Any
 
+from core.exceptions import CanNotGetStatisticsError, CanNotGetTransactionsError
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.transaction_repository_interface import (
@@ -31,7 +32,7 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
             )"""
         self.conn.execute_query(query)
 
-    def create_Transaction(
+    def create_transaction(
         self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
     ) -> bool:
         query = (
@@ -50,11 +51,11 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         self.conn.commit()
         return True
 
-    def get_all_transactions(self) -> Any:
+    def get_all_transactions(self) -> list[Any]:
         select_query = "SELECT * FROM transactions"
         transactions = self.conn.search(select_query)
         if transactions is None:
-            raise Exception("Could not get balance for the wallet")
+            raise CanNotGetTransactionsError
         return transactions
 
     def get_wallet_all_transactions(self, wallet: str) -> Any:
@@ -63,14 +64,14 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         )
         transactions = self.conn.search(select_query, (wallet, wallet))
         if transactions is None:
-            raise Exception("Could not get balance for the wallet")
+            raise CanNotGetTransactionsError
         return transactions
 
     def get_statistics(self) -> dict[str, float]:
         select_query = "SELECT SUM(total), COUNT(*) FROM transactions"
         res = self.conn.search(select_query)[0]
         if res is None:
-            raise Exception("Could not get balance for the wallet")
+            raise CanNotGetStatisticsError
         return {"transaction_total_number": res[1], "transaction_total_amount": res[0]}
 
 
@@ -83,7 +84,7 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
     def create_table(self) -> None:
         self.transactions.clear()
 
-    def create_Transaction(
+    def create_transaction(
         self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
     ) -> bool:
         total_amount = sent_amount + fee_amount
@@ -95,8 +96,8 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
         self.transactions.append(new_transaction)
         return True
 
-    def get_all_transactions(self) -> Any:
-        pass
+    def get_all_transactions(self) -> list[Any]:
+        return self.transactions
 
     def get_wallet_all_transactions(self, wallet: str) -> Any:
         transactions_list = []

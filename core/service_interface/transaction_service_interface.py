@@ -43,9 +43,17 @@ class TransactionService(ITransactionService):
             amount_btc, from_wallet_owner, to_wallet_owner
         )
         sent_amount = amount_btc - transaction_fee
-        self.transactions_repository.create_Transaction(
+        self.transactions_repository.create_transaction(
             from_wallet, to_wallet, sent_amount, transaction_fee
         )
+        from_wallet_new_balance = (
+            self.wallets_repository.get_balance(from_wallet) - amount_btc
+        )
+        to_wallet_new_balance = (
+            self.wallets_repository.get_balance(to_wallet) + sent_amount
+        )
+        self.wallets_repository.change_balance(from_wallet, from_wallet_new_balance)
+        self.wallets_repository.change_balance(to_wallet, to_wallet_new_balance)
 
     def get_transactions(self, api_key: str) -> list[Any]:
         lst = list()
@@ -53,10 +61,12 @@ class TransactionService(ITransactionService):
             for t in self.transactions_repository.get_wallet_all_transactions(
                 str(w.address)
             ):
-                lst.append(t)
+                from_wallet_index = 0
+                if t[from_wallet_index] == w.address:
+                    lst.append(t)
         return lst
 
-    def get_wallet_transactions(self, address: str) -> list[Any]:
+    def get_wallet_transactions(self, api_key: str, address: str) -> list[Any]:
         lst = list()
         for t in self.transactions_repository.get_wallet_all_transactions(address):
             lst.append(t)

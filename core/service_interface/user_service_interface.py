@@ -1,4 +1,4 @@
-from asyncio import Protocol
+from typing import Protocol
 from uuid import UUID
 
 from core.user import IUserFactory

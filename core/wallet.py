@@ -7,6 +7,7 @@ from uuid import UUID
 class IWallet(Protocol):
     address: UUID
     api_key: UUID
+    amount: float
     # def get_address(self) -> UUID:
     #     pass
     #
