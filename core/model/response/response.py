@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Any
 
-from core.transaction import Transaction
-
 
 @dataclass
 class UserRegistrationResponse:

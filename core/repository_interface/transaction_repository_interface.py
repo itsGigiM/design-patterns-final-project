@@ -3,7 +3,7 @@ from typing import Any, Protocol
 
 class ITransactionRepository(Protocol):
     def create_Transaction(
-            self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
+        self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
     ) -> bool:
         pass
 

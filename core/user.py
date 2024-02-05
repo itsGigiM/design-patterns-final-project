@@ -2,8 +2,8 @@ import uuid
 from abc import ABC, abstractmethod
 from asyncio import Protocol
 from dataclasses import dataclass
+
 from core.repository_interface.user_repository_interface import IUserRepository
-from core.constants import USER_ALREADY_EXISTS_ERROR
 
 
 @dataclass
