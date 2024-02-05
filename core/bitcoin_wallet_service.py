@@ -1,4 +1,5 @@
 from http.client import HTTPException
+from uuid import UUID
 
 from core.model.request.request import TransactionRequest
 from core.model.response.response import StatisticsResponse, TransactionResponse
@@ -17,7 +18,7 @@ class BitcoinWalletService:
         self.wallet_service = wallet_service
         self.transaction_service = transaction_service
 
-    def register_user(self, user_data: str) -> str:
+    def register_user(self, user_data: str) -> UUID:
         return self.user_service.register_user(user_data)
 
     @staticmethod

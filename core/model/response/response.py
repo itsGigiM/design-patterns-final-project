@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -7,7 +8,7 @@ from core.transaction import Transaction
 
 @dataclass
 class UserRegistrationResponse(BaseModel):
-    api_key: str
+    api_key: UUID
 
 
 @dataclass
