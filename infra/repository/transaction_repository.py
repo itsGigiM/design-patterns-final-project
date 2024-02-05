@@ -12,7 +12,7 @@ from core.transaction import Transaction
 class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
-        self.drop_table()
+        # self.drop_table()
         self.create_table()
 
     def drop_table(self) -> None:

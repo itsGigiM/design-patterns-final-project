@@ -8,7 +8,7 @@ from core.repository_interface.user_repository_interface import IUserRepository
 class SQLUserRepository(IUserRepository, ICreateDatabase):
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
-        self.drop_table()
+        # self.drop_table()
         self.create_table()
 
     def drop_table(self) -> None:

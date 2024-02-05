@@ -1,5 +1,5 @@
-from typing import Protocol
 from typing import Any
+from typing import Protocol
 
 from core.repository_interface.transaction_repository_interface import (
     ITransactionRepository,
@@ -12,6 +12,12 @@ class ITransactionService(Protocol):
     def create_transaction(
             self, from_wallet: str, to_wallet: str, amount_btc: float
     ) -> None:
+        pass
+
+    def get_transactions(self, api_key: str) -> list[Any]:
+        pass
+
+    def get_wallet_transactions(self, api_key: str, address: str) -> list[Any]:
         pass
 
     def get_statistics(self) -> dict[str, Any]:
@@ -41,6 +47,19 @@ class TransactionService(ITransactionService):
         self.transactions_repository.create_Transaction(
             from_wallet, to_wallet, sent_amount, transaction_fee
         )
+
+    def get_transactions(self, api_key: str) -> list[Any]:
+        lst = list()
+        for w in self.wallets_repository.get_wallets(api_key):
+            for t in self.transactions_repository.get_wallet_all_transactions(str(w.address)):
+                lst.append(t)
+        return lst
+
+    def get_wallet_transactions(self, api_key: str, address: str) -> list[Any]:
+        lst = list()
+        for t in self.transactions_repository.get_wallet_all_transactions(str(w.address)):
+            lst.append(t)
+        return lst
 
     def get_statistics(self) -> dict[str, Any]:
         res = self.transactions_repository.get_statistics()

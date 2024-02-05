@@ -1,29 +1,27 @@
 from dataclasses import dataclass
-from uuid import UUID
-
-from pydantic import BaseModel
+from typing import Any
 
 from core.transaction import Transaction
 
 
 @dataclass
-class UserRegistrationResponse(BaseModel):
-    api_key: UUID
+class UserRegistrationResponse:
+    api_key: str
 
 
 @dataclass
-class WalletResponse(BaseModel):
+class WalletResponse:
     wallet_address: str
     balance_btc: float
     balance_usd: float
 
 
 @dataclass
-class TransactionResponse(BaseModel):
-    transactions: list[Transaction]
+class TransactionResponse:
+    transactions: list[Any]
 
 
 @dataclass
-class StatisticsResponse(BaseModel):
+class StatisticsResponse:
     transaction_amount: int
     transaction_sum: float

@@ -10,7 +10,8 @@ class IBTCtoUSDConverter(Protocol):
 
 
 class BTCtoUSDConverter(IBTCtoUSDConverter):
-    def __get_btc_price(self) -> float:
+    @staticmethod
+    def __get_btc_price() -> float:
         url = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
         parameters = {"symbol": "BTC", "convert": "USD"}
         headers = {
@@ -28,9 +29,9 @@ class BTCtoUSDConverter(IBTCtoUSDConverter):
             # print(f"{amount_btc} BTC is equivalent to ${usd_value:.2f} USD")
             return float(btc_price)
         except (
-            requests.ConnectionError,
-            requests.Timeout,
-            requests.TooManyRedirects,
+                requests.ConnectionError,
+                requests.Timeout,
+                requests.TooManyRedirects,
         ) as e:
             print(e)
             return -1.0

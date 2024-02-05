@@ -53,6 +53,3 @@ class Wallet(IWallet):
 @dataclass
 class WalletUSD(Wallet):
     usd_amount: float
-    api_key: UUID
-    address: UUID
-    btc_amount: float

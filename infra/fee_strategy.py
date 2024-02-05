@@ -6,15 +6,15 @@ from core.constants import SATOSHIS_IN_ONE_BITCOIN, TRANSACTION_FEE
 class IFeeStrategy(Protocol):
     @staticmethod
     def calculate_transaction_fee(
-        amount: float, from_wallet_owner: str, to_wallet_owner: str
+            amount: float, from_wallet_owner: str, to_wallet_owner: str
     ) -> float:
         pass
 
 
-class FeeStrategy(Protocol):
+class FeeStrategy(IFeeStrategy):
     @staticmethod
     def calculate_transaction_fee(
-        amount: float, from_wallet_owner: str, to_wallet_owner: str
+            amount: float, from_wallet_owner: str, to_wallet_owner: str
     ) -> float:
         if from_wallet_owner == to_wallet_owner:
             return 0
