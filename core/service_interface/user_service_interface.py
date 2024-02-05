@@ -1,8 +1,7 @@
 from asyncio import Protocol
 from uuid import UUID
 
-from core.repository_interface.user_repository_interface import IUserRepository
-from core.user import IUserFactory, UserFactory, User
+from core.user import IUserFactory
 
 
 class IUserService(Protocol):
