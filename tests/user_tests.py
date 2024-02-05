@@ -1,8 +1,10 @@
 import pytest
 import uuid
 
+from core.repository_interface.user_repository_interface import IUserRepository
+from core.service_interface.user_service_interface import UserService
 from core.user import User, IUser, UserFactory
-from infra.repository.user_repository import InMemoryUserRepository
+from infra.repository.user_repository import InMemoryUserRepository, SQLUserRepository
 
 
 def test_user_creation():
@@ -25,7 +27,7 @@ def test_users_unique_api_key():
 def test_generate_user_success():
     user_repository = InMemoryUserRepository()
     user_factory = UserFactory(user_repository)
-    email = "gigiBandzia@gmail.com"
+    email = "ggg@gmail.com"
 
     result = user_factory.generate_user(email)
 
@@ -37,9 +39,34 @@ def test_generate_user_success():
 def test_generate_user_already_exists():
     user_repository = InMemoryUserRepository()
     user_factory = UserFactory(user_repository)
-    email = "gigiBandzia@gmail.com"
+    email = "ggg@gmail.com"
 
     user_factory.generate_user(email)
 
     with pytest.raises(Exception):
         user_factory.generate_user(email)
+
+
+class StubUserRepository(IUserRepository):
+    def create_user(self, email: str) -> str:
+        pass
+
+    def exists_user(self, email: str) -> bool:
+        pass
+
+    def set_wallet_number(self, email: str, wallet_num: int) -> None:
+        pass
+
+    def get_wallet_number(self, email: str) -> int:
+        pass
+
+
+def test_register_user():
+    user_repository = StubUserRepository()
+    user_factory = UserFactory(user_repository=user_repository)
+    user_service = UserService(user_factory=user_factory)
+    user_data = "gg@gmail.com"
+
+    result = user_service.register_user(user_data=user_data)
+
+    assert isinstance(result, uuid.UUID)
