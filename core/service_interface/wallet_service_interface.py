@@ -11,6 +11,9 @@ class IWalletService(Protocol):
     def create_wallet(self, api_key: str) -> WalletUSD:
         pass
 
+    def create_default_wallet(self, address: str, api_key: str) -> None:
+        pass
+
     def get_wallet(self, address: str) -> WalletUSD:
         pass
 
@@ -24,9 +27,13 @@ class WalletService(IWalletService):
 
     def create_wallet(self, api_key: str) -> WalletUSD:
         address = uuid.uuid4()
-        starting_balance = BTC_STARTING_BALANCE
-        self.wallet_rep.create_wallet(api_key, address, starting_balance)
-        return WalletUSD(usd_amount=1, address=address, btc_amount=starting_balance)
+        start_b = BTC_STARTING_BALANCE
+        if self.wallet_rep.create_wallet(api_key, str(address), start_b):
+            wallet = self.wallet_rep.get_wallet(address=str(address))
+            return self.adapter.convert(wallet)
+
+    def create_default_wallet(self, address: str, api_key: str) -> None:
+        self.wallet_rep.create_wallet(api_key, address, 0)
 
     def get_wallet(self, address: str) -> WalletUSD:
         wallet = self.wallet_rep.get_wallet(address=address)

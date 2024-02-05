@@ -1,14 +1,36 @@
 from fastapi import APIRouter, Depends
 from fastapi import HTTPException, Header
 
+from core.BTCtoUSDconverter import BTCtoUSDConverter
+from core.WalletToWalletUSDAdapter import WalletToUSDWalletAdapter
 from core.bitcoin_wallet_service import BitcoinWalletService
 from core.constants import ADMIN_API_KEY
 from core.model.request.request import UserRegistrationRequest, TransactionRequest
 from core.model.response.response import UserRegistrationResponse, WalletResponse, TransactionResponse, \
     StatisticsResponse
+from core.service_interface.transaction_service_interface import TransactionService
+from core.service_interface.user_service_interface import UserService
+from core.service_interface.wallet_service_interface import WalletService
+from core.user import UserFactory
+from infra.fee_strategy import FeeStrategy
+from infra.repository.database_connection import DatabaseConnection
+from infra.repository.database_executor import DatabaseExecutor
+from infra.repository.transaction_repository import SQLTransactionRepository
+from infra.repository.user_repository import SQLUserRepository
+from infra.repository.wallet_repository import SQLWalletRepository
+
+executor = DatabaseExecutor(DatabaseConnection())
+
+u_repository = SQLUserRepository(executor)
+w_repository = SQLWalletRepository(executor)
+t_repository = SQLTransactionRepository(executor)
+adapter = WalletToUSDWalletAdapter(BTCtoUSDConverter())
+u_service = UserService(UserFactory(u_repository))
+w_service = WalletService(w_repository, adapter)
+t_service = TransactionService(t_repository, FeeStrategy(), w_repository)
+service_dependency = BitcoinWalletService(u_service, w_service, t_service)
 
 app_router = APIRouter()
-service_dependency = BitcoinWalletService() # TODO add dependency services
 
 
 def get_service() -> BitcoinWalletService:
@@ -21,7 +43,7 @@ def get_service() -> BitcoinWalletService:
 def register_user(user_data: UserRegistrationRequest,
                   s: BitcoinWalletService = Depends(get_service)) -> UserRegistrationResponse:
     try:
-        return UserRegistrationResponse(s.register_user(user_data.email))
+        return UserRegistrationResponse(str(s.register_user(user_data.email)))
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -49,6 +71,8 @@ async def get_wallet_info(address: str,
                           s: BitcoinWalletService = Depends(get_service)) -> WalletResponse:
     try:
         res = s.get_wallet(address, api_key)
+        if res.api_key != api_key:
+            raise HTTPException(status_code=403, detail="Forbidden")
         return WalletResponse(str(res.address), res.amount, res.usd_amount)
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
@@ -64,9 +88,9 @@ async def get_wallet_info(address: str,
 async def make_transaction(
         transaction_request: TransactionRequest,
         api_key: str = Header(...),
-        s: BitcoinWalletService = Depends(get_service)) -> TransactionResponse:
+        s: BitcoinWalletService = Depends(get_service)) -> None:
     try:
-        return s.make_transaction(transaction_request, api_key)
+        s.make_transaction(transaction_request, api_key)
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
     except KeyError:
@@ -82,7 +106,7 @@ async def get_transactions(
         api_key: str = Header(...),
         s: BitcoinWalletService = Depends(get_service)) -> TransactionResponse:
     try:
-        return s.get_transactions(api_key)
+        return TransactionResponse(s.get_transactions(api_key))
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
     except KeyError:
@@ -99,7 +123,7 @@ async def get_wallet_transactions(
         api_key: str = Header(...),
         s: BitcoinWalletService = Depends(get_service)) -> TransactionResponse:
     try:
-        return s.get_wallet_transactions(address, api_key)
+        return TransactionResponse(s.get_wallet_transactions(address, api_key))
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
     except KeyError:

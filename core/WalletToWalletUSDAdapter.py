@@ -15,5 +15,7 @@ class WalletToUSDWalletAdapter(IWalletToWalletUSDAdapter):
 
     def convert(self, wallet: Wallet) -> WalletUSD:
         usd_value = self.converter.convert(wallet.amount)
-        usd_wallet = WalletUSD(usd_amount=usd_value, api_key=wallet.api_key ,address=wallet.address, btc_amount=wallet.amount)
-
+        return WalletUSD(usd_amount=usd_value,
+                         api_key=wallet.api_key,
+                         address=wallet.address,
+                         amount=wallet.amount)

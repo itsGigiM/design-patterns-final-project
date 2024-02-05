@@ -68,5 +68,5 @@ def test_get_wallets(wallet_repo: SQLWalletRepository) -> None:
     wallets = wallet_repo.get_wallets(user)
     assert len(wallets) == len(addresses)
     for wallet in wallets:
-        assert wallet[0] == user
-        assert wallet[1] in addresses
+        assert wallet.api_key == user
+        assert wallet.address in addresses
