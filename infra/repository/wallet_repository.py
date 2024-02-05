@@ -12,7 +12,7 @@ from core.exceptions import (
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
-from core.wallet import Wallet, IWallet
+from core.wallet import Wallet
 
 
 class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):

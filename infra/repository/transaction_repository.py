@@ -51,7 +51,7 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         self.conn.commit()
         return True
 
-    def get_all_transactions(self) -> list[Any]:
+    def get_all_transactions(self) -> Any:
         select_query = "SELECT * FROM transactions"
         transactions = self.conn.search(select_query)
         if transactions is None:
@@ -96,7 +96,7 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
         self.transactions.append(new_transaction)
         return True
 
-    def get_all_transactions(self) -> list[Any]:
+    def get_all_transactions(self) -> Any:
         return self.transactions
 
     def get_wallet_all_transactions(self, wallet: str) -> Any:

@@ -2,6 +2,7 @@ import uuid
 from typing import Protocol
 
 from core.constants import BTC_STARTING_BALANCE, DEFAULT_WALLET_BALANCE
+from core.exceptions import CanNotCreateWalletError
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import WalletUSD
 from core.walletToWalletUSDAdapter import IWalletToWalletUSDAdapter
@@ -33,6 +34,7 @@ class WalletService(IWalletService):
         if self.wallet_rep.create_wallet(api_key, str(address), start_b):
             wallet = self.wallet_rep.get_wallet(address=str(address))
             return self.adapter.convert(wallet)
+        raise CanNotCreateWalletError
 
     def create_default_wallet(self, address: str, api_key: str) -> None:
         self.wallet_rep.create_wallet(api_key, address, DEFAULT_WALLET_BALANCE)

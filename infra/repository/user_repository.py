@@ -1,6 +1,10 @@
 from typing import Any
 
-from core.exceptions import CanNotUpdateWalletNumberError, MailNotValidError, UserExistsError
+from core.exceptions import (
+    CanNotUpdateWalletNumberError,
+    MailNotValidError,
+    UserExistsError,
+)
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.user_repository_interface import IUserRepository

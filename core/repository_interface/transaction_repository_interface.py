@@ -7,7 +7,7 @@ class ITransactionRepository(Protocol):
     ) -> bool:
         pass
 
-    def get_all_transactions(self) -> list[Any]:
+    def get_all_transactions(self) -> Any:
         pass
 
     def get_wallet_all_transactions(self, wallet: str) -> Any:

@@ -1,7 +1,7 @@
 from typing import Protocol
 
 from core.constants import BTC_STARTING_BALANCE
-from core.wallet import IWallet
+from core.wallet import Wallet
 
 
 class IWalletRepository(Protocol):
@@ -22,8 +22,8 @@ class IWalletRepository(Protocol):
     def get_user(self, address: str) -> str:
         pass
 
-    def get_wallet(self, address: str) -> IWallet:
+    def get_wallet(self, address: str) -> Wallet:
         pass
 
-    def get_wallets(self, api_key: str) -> list[IWallet]:
+    def get_wallets(self, api_key: str) -> list[Wallet]:
         pass

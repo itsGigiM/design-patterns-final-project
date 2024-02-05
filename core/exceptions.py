@@ -44,3 +44,7 @@ class CanNotGetTransactionsError(Exception):
 
 class CanNotGetStatisticsError(Exception):
     pass
+
+
+class CanNotCreateWalletError(Exception):
+    pass
