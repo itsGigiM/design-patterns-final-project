@@ -1,16 +1,12 @@
 from typing import Protocol
 
 from core.constants import SATOSHIS_IN_ONE_BITCOIN, TRANSACTION_FEE
-from core.repository_interface.wallet_repository_interface import IWalletRepository
 
 
 class IFeeStrategy(Protocol):
     @staticmethod
     def calculate_transaction_fee(
-        amount: float,
-        from_wallet: str,
-        to_wallet: str,
-        wallets_database: IWalletRepository,
+        amount: float, from_wallet_owner: str, to_wallet_owner: str
     ) -> float:
         pass
 
@@ -18,14 +14,9 @@ class IFeeStrategy(Protocol):
 class FeeStrategy(Protocol):
     @staticmethod
     def calculate_transaction_fee(
-        amount: float,
-        from_wallet: str,
-        to_wallet: str,
-        wallets_database: IWalletRepository,
+        amount: float, from_wallet_owner: str, to_wallet_owner: str
     ) -> float:
-        from_owner = wallets_database.get_user(from_wallet)
-        to_owner = wallets_database.get_user(to_wallet)
-        if from_owner == to_owner:
+        if from_wallet_owner == to_wallet_owner:
             return 0
 
         amount_satoshis = amount * SATOSHIS_IN_ONE_BITCOIN
