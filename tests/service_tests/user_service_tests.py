@@ -23,7 +23,7 @@ def test_register_user() -> None:
     user_repository = StubUserRepository()
     user_factory = UserFactory(user_repository=user_repository)
     user_service = UserService(user_factory=user_factory)
-    user_data = "gg@gmail.com"
+    user_data = "gigiBandia@gmail.com"
 
     result = user_service.register_user(user_data=user_data)
 

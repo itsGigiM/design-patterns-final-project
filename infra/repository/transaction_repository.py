@@ -10,6 +10,8 @@ from core.repository_interface.transaction_repository_interface import (
 from core.transaction import Transaction
 
 
+
+
 class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
@@ -88,10 +90,10 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
         self, from_wallet: str, to_wallet: str, sent_amount: float, fee_amount: float
     ) -> bool:
         total_amount = sent_amount + fee_amount
-        from_wallet_uuid = uuid.UUID(from_wallet)
-        to_wallet_uuid = uuid.UUID(to_wallet)
+        from_wallet_uuid = from_wallet
+        to_wallet_uuid = to_wallet
         new_transaction = Transaction(
-            from_wallet_uuid, to_wallet_uuid, sent_amount, fee_amount, total_amount
+            uuid.UUID(from_wallet_uuid), uuid.UUID(to_wallet_uuid), sent_amount, fee_amount, total_amount
         )
         self.transactions.append(new_transaction)
         return True
