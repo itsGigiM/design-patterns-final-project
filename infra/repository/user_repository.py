@@ -1,5 +1,10 @@
 from typing import Any
 
+from core.exceptions import (
+    CanNotUpdateWalletNumberError,
+    MailNotValidError,
+    UserExistsError,
+)
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.user_repository_interface import IUserRepository
@@ -8,7 +13,7 @@ from core.repository_interface.user_repository_interface import IUserRepository
 class SQLUserRepository(IUserRepository, ICreateDatabase):
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
-        self.drop_table()
+        # self.drop_table()
         self.create_table()
 
     def drop_table(self) -> None:
@@ -39,7 +44,7 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
         query = "UPDATE user SET wallet_number = ? WHERE email = ?"
         params = (str(wallet_num), email)
         if self.conn.execute_query(query, params) == 0:
-            raise Exception("Cannot update the user wallet number")
+            raise CanNotUpdateWalletNumberError.custom_exception()
         self.conn.commit()
 
     def get_wallet_number(self, email: str) -> Any:
@@ -49,14 +54,20 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
 
 
 class InMemoryUserRepository(IUserRepository, ICreateDatabase):
-    memory_dict: dict[Any, Any]
+    memory_dict: dict[str, int]
 
     def __init__(self) -> None:
         self.memory_dict = {}
 
+    def drop_table(self) -> None:
+        self.memory_dict = {}
+
+    def create_table(self) -> None:
+        self.memory_dict = {}
+
     def create_user(self, email: str) -> str:
         if self.exists_user(email):
-            raise Exception("User already exists")
+            raise UserExistsError.custom_exception()
         self.memory_dict[email] = 0
         return email
 
@@ -65,10 +76,10 @@ class InMemoryUserRepository(IUserRepository, ICreateDatabase):
 
     def set_wallet_number(self, email: str, wallet_num: int) -> None:
         if not self.exists_user(email):
-            raise Exception("Cannot find user with this email")
+            raise MailNotValidError.custom_exception()
         self.memory_dict[email] = wallet_num
 
-    def get_wallet_number(self, email: str) -> Any:
+    def get_wallet_number(self, email: str) -> int:
         if not self.exists_user(email):
-            raise Exception("Cannot find user with this email")
+            raise MailNotValidError.custom_exception()
         return self.memory_dict[email]

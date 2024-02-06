@@ -2,13 +2,12 @@ from dataclasses import dataclass
 from typing import Protocol
 from uuid import UUID
 
-from core.BTCtoUSDconverter import IBTCtoUSDConverter
-
 
 @dataclass
 class IWallet(Protocol):
     address: UUID
     api_key: UUID
+    amount: float
     # def get_address(self) -> UUID:
     #     pass
     #
@@ -31,6 +30,7 @@ class Wallet(IWallet):
 
     def __hash__(self) -> int:
         return hash(self.address)
+
     #
     # def get_address(self) -> UUID:
     #     return self.address
@@ -53,6 +53,3 @@ class Wallet(IWallet):
 @dataclass
 class WalletUSD(Wallet):
     usd_amount: float
-    api_key: UUID
-    address: UUID
-    btc_amount: float

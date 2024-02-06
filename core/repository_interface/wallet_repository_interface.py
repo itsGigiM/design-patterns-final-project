@@ -1,8 +1,13 @@
-from typing import Any, Optional, Protocol
+from typing import Protocol
+
+from core.constants import BTC_STARTING_BALANCE
+from core.wallet import Wallet
 
 
 class IWalletRepository(Protocol):
-    def create_wallet(self, user: str, address: str, btc_balance: float = 1) -> bool:
+    def create_wallet(
+        self, api_key: str, address: str, btc_balance: float = BTC_STARTING_BALANCE
+    ) -> bool:
         pass
 
     def exists_wallet(self, address: str) -> bool:
@@ -17,8 +22,8 @@ class IWalletRepository(Protocol):
     def get_user(self, address: str) -> str:
         pass
 
-    def get_wallet(self, address: str) -> Optional[Any]:
+    def get_wallet(self, address: str) -> Wallet:
         pass
 
-    def get_wallets(self, user: str) -> Any:
+    def get_wallets(self, api_key: str) -> list[Wallet]:
         pass

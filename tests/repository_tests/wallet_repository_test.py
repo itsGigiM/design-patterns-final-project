@@ -55,9 +55,11 @@ def test_get_user(wallet_repo: SQLWalletRepository) -> None:
 def test_get_wallet(wallet_repo: SQLWalletRepository) -> None:
     address = "wallet_address6"
     user = "user6"
-    expected_wallet = (user, address, 1)
     wallet_repo.create_wallet(user, address)
-    assert wallet_repo.get_wallet(address) == expected_wallet
+    wallet = wallet_repo.get_wallet(address)
+    assert wallet.api_key == user
+    assert wallet.address == address
+    assert wallet.amount == 1
 
 
 def test_get_wallets(wallet_repo: SQLWalletRepository) -> None:
@@ -68,5 +70,5 @@ def test_get_wallets(wallet_repo: SQLWalletRepository) -> None:
     wallets = wallet_repo.get_wallets(user)
     assert len(wallets) == len(addresses)
     for wallet in wallets:
-        assert wallet[0] == user
-        assert wallet[1] in addresses
+        assert wallet.api_key == user
+        assert wallet.address in addresses

@@ -1,21 +1,27 @@
 import copy
 import uuid
-from typing import Any, Optional
+from typing import Any
 
-from core.BTCtoUSDconverter import IBTCtoUSDConverter
+from core.exceptions import (
+    CanNotGetUserError,
+    CanNotGetWalletBalanceError,
+    CanNotUpdateWalletBalanceError,
+    WalletDoesNotExistError,
+)
 from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import Wallet
+from infra.BTCtoUSDconverter import IBTCtoUSDConverter
 
 
 class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
-
     wallets: dict[str, Wallet]
     converter: IBTCtoUSDConverter
 
     def __init__(self, converter: IBTCtoUSDConverter):
         self.converter = converter
+        self.wallets: dict[str, Wallet] = dict()
 
     def drop_table(self) -> None:
         self.wallets = {}
@@ -43,14 +49,17 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
     def get_user(self, address: str) -> str:
         return str(self.wallets[address].api_key)
 
-    def get_wallet(self, address: str) -> Optional[Any]:
-        our_wallet = self.wallets[address]
-        return copy.copy(our_wallet)
+    def get_wallet(self, address: str) -> Wallet:
+        if address in self.wallets:
+            our_wallet = self.wallets[address]
+            return copy.copy(our_wallet)
 
-    def get_wallets(self, user: str) -> Any:
-        lst = list()
+        raise WalletDoesNotExistError.custom_exception()
+
+    def get_wallets(self, api_key: str) -> list[Wallet]:
+        lst = []
         for address, wallet in self.wallets.items():
-            if wallet.api_key == user:
+            if str(wallet.api_key) == api_key:
                 lst.append(wallet)
         return lst
 
@@ -58,7 +67,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
 class SQLWalletRepository(IWalletRepository, ICreateDatabase):
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
-        self.drop_table()
+        # self.drop_table()
         self.create_table()
 
     def drop_table(self) -> None:
@@ -67,16 +76,16 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
     def create_table(self) -> None:
         query = """
             CREATE TABLE IF NOT EXISTS wallet (
-                user_id TEXT,
+                api_key TEXT,
                 address TEXT PRIMARY KEY,
                 btc_balance number,
-                FOREIGN KEY (user_id) REFERENCES user(email)
+                FOREIGN KEY (api_key) REFERENCES user(email)
             )"""
         self.conn.execute_query(query)
 
-    def create_wallet(self, user_id: str, address: str, btc_balance: float = 1) -> bool:
-        query = "INSERT INTO wallet(user_id, address, btc_balance) VALUES (?, ?, ?)"
-        params = (user_id, address, btc_balance)
+    def create_wallet(self, api_key: str, address: str, btc_balance: float = 1) -> bool:
+        query = "INSERT INTO wallet(api_key, address, btc_balance) VALUES (?, ?, ?)"
+        params = (api_key, address, btc_balance)
         if self.conn.execute_query(query, params) == 0:
             return False
         self.conn.commit()
@@ -91,33 +100,37 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         query = "UPDATE wallet SET btc_balance = ? WHERE address = ?"
         params = (str(balance_change), address)
         if self.conn.execute_query(query, params) == 0:
-            raise Exception("Cannot update the btc balance in wallet")
+            raise CanNotUpdateWalletBalanceError.custom_exception()
         self.conn.commit()
 
     def get_balance(self, address: str) -> Any:
         select_query = "SELECT btc_balance FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise Exception("Could not get balance for the wallet")
+            raise CanNotGetWalletBalanceError.custom_exception()
         return data[0][0]
 
     def get_user(self, address: str) -> Any:
-        select_query = "SELECT user_id FROM wallet WHERE address = ?"
+        select_query = "SELECT api_key FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise Exception("Could not get user for the wallet")
+            raise CanNotGetUserError.custom_exception()
         return data[0][0]
 
-    def get_wallet(self, address: str) -> Optional[Any]:
+    def get_wallet(self, address: str) -> Wallet:
         select_query = "SELECT * FROM wallet WHERE address = ?"
         wallet = self.conn.search(select_query, (address,))
-        if wallet is None:
-            raise Exception("Could not get balance for the wallet")
-        return wallet[0]
+        if len(wallet) == 0:
+            raise WalletDoesNotExistError.custom_exception()
+        w = wallet[0]
+        return Wallet(w[1], w[0], w[2])
 
-    def get_wallets(self, user_id: str) -> Any:
-        select_query = "SELECT * FROM wallet WHERE user_id = ?"
-        wallets = self.conn.search(select_query, (user_id,))
+    def get_wallets(self, api_key: str) -> list[Wallet]:
+        select_query = "SELECT * FROM wallet WHERE api_key = ?"
+        wallets = self.conn.search(select_query, (api_key,))
         if wallets is None:
-            raise Exception("Could not get balance for the wallet")
-        return wallets
+            raise WalletDoesNotExistError.custom_exception()
+        lst = list()
+        for w in wallets:
+            lst.append(Wallet(w[1], w[0], w[2]))
+        return lst

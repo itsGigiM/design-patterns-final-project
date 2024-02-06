@@ -8,7 +8,8 @@ class UserRegistrationRequest(BaseModel):
     email: str
 
 
-class WalletCreationRequest:
+@dataclass
+class WalletCreationRequest(BaseModel):
     pass
 
 

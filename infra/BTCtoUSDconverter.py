@@ -10,7 +10,8 @@ class IBTCtoUSDConverter(Protocol):
 
 
 class BTCtoUSDConverter(IBTCtoUSDConverter):
-    def __get_btc_price(self) -> float:
+    @staticmethod
+    def __get_btc_price() -> float:
         url = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
         parameters = {"symbol": "BTC", "convert": "USD"}
         headers = {

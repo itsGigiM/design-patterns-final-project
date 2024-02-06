@@ -1,17 +1,16 @@
 import pytest
 
-from infra.repository.database_executor import DatabaseExecutor
 from infra.repository.user_repository import InMemoryUserRepository
 
 
 @pytest.fixture
-def user_repo(db_executor: DatabaseExecutor) -> InMemoryUserRepository:
+def user_repo() -> InMemoryUserRepository:
     user_repo = InMemoryUserRepository()
     user_repo.create_table()
     return user_repo
 
 
-def test_create_user(db_executor: DatabaseExecutor) -> None:
+def test_create_user() -> None:
     user_repo = InMemoryUserRepository()
     email = "test@example.com"
     assert user_repo.create_user(email) == email

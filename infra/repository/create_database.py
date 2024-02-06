@@ -3,7 +3,6 @@ from core.repository_interface.database_executor_interface import IDatabaseExecu
 
 
 class CreateDatabase(ICreateDatabase):
-
     def __init__(self, db_connection: IDatabaseExecutor):
         self.conn = db_connection
 

@@ -1,4 +1,4 @@
-from asyncio import Protocol
+from typing import Protocol
 from uuid import UUID
 
 from core.user import IUserFactory
@@ -9,7 +9,7 @@ class IUserService(Protocol):
         pass
 
 
-class UserService(Protocol):
+class UserService(IUserService):
     def __init__(self, user_factory: IUserFactory):
         self.user_factory = user_factory
 

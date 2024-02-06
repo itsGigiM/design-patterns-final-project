@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Connection, Error
 
+from core.exceptions import CanNotConnectToDatabaseError
 from core.repository_interface.database_connection_interface import IDatabaseConnection
 
 
@@ -11,10 +12,10 @@ class DatabaseConnection(IDatabaseConnection):
 
     def create_connection(self) -> Connection:
         try:
-            conn = sqlite3.connect(self.db_name)
+            conn = sqlite3.connect(self.db_name, check_same_thread=False)
             return conn
         except Error:
-            raise Exception("Cannot connect to database")
+            raise CanNotConnectToDatabaseError.custom_exception()
 
     def get_connection(self) -> Connection:
         return self.conn
