@@ -22,7 +22,7 @@
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for in_memory_transaction_repository_test.test_get_statistics">
+  <component name="RunManager" selected="Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions">
     <configuration name="Python tests for in_memory_transaction_repository_test.test_create_Transaction" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="design-patterns-final-project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,9 +85,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_statistics" />
-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_create_Transaction" />
         <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions" />
+        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_create_Transaction" />
+        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_statistics" />
         <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_wallet_all_transactions" />
       </list>
     </recent_temporary>
@@ -100,7 +100,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="wrote WalletService" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/design_patterns_final_project$.coverage" NAME=" Coverage Results" MODIFIED="1707225668038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/repository_tests" />
+    <SUITE FILE_PATH="coverage/design_patterns_final_project$.coverage" NAME=" Coverage Results" MODIFIED="1707226281317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/repository_tests" />
     <SUITE FILE_PATH="coverage/design_patterns_final_project$BTCtoUSDconverter.coverage" NAME="BTCtoUSDconverter Coverage Results" MODIFIED="1706955031784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/design_patterns_final_project$wallet.coverage" NAME="wallet Coverage Results" MODIFIED="1706955057462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
