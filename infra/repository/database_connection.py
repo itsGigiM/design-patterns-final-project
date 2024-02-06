@@ -15,7 +15,7 @@ class DatabaseConnection(IDatabaseConnection):
             conn = sqlite3.connect(self.db_name, check_same_thread=False)
             return conn
         except Error:
-            raise CanNotConnectToDatabaseError
+            raise CanNotConnectToDatabaseError.custom_exception()
 
     def get_connection(self) -> Connection:
         return self.conn

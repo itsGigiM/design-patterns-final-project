@@ -55,7 +55,7 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         select_query = "SELECT * FROM transactions"
         transactions = self.conn.search(select_query)
         if transactions is None:
-            raise CanNotGetTransactionsError
+            raise CanNotGetTransactionsError.custom_exception()
         return transactions
 
     def get_wallet_all_transactions(self, wallet: str) -> Any:
@@ -64,14 +64,14 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         )
         transactions = self.conn.search(select_query, (wallet, wallet))
         if transactions is None:
-            raise CanNotGetTransactionsError
+            raise CanNotGetTransactionsError.custom_exception()
         return transactions
 
     def get_statistics(self) -> dict[str, float]:
         select_query = "SELECT SUM(total), COUNT(*) FROM transactions"
         res = self.conn.search(select_query)[0]
         if res is None:
-            raise CanNotGetStatisticsError
+            raise CanNotGetStatisticsError.custom_exception()
         return {"transaction_total_number": res[1], "transaction_total_amount": res[0]}
 
 

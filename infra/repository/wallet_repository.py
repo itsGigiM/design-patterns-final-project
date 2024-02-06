@@ -53,7 +53,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
             our_wallet = self.wallets[address]
             return copy.copy(our_wallet)
 
-        raise WalletDoesNotExistError
+        raise WalletDoesNotExistError.custom_exception()
 
     def get_wallets(self, api_key: str) -> list[Wallet]:
         lst = []
@@ -99,28 +99,28 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         query = "UPDATE wallet SET btc_balance = ? WHERE address = ?"
         params = (str(balance_change), address)
         if self.conn.execute_query(query, params) == 0:
-            raise CanNotUpdateWalletBalanceError
+            raise CanNotUpdateWalletBalanceError.custom_exception()
         self.conn.commit()
 
     def get_balance(self, address: str) -> Any:
         select_query = "SELECT btc_balance FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise CanNotGetWalletBalanceError
+            raise CanNotGetWalletBalanceError.custom_exception()
         return data[0][0]
 
     def get_user(self, address: str) -> Any:
         select_query = "SELECT api_key FROM wallet WHERE address = ?"
         data = self.conn.search(select_query, (address,))
         if data is None:
-            raise CanNotGetUserError
+            raise CanNotGetUserError.custom_exception()
         return data[0][0]
 
     def get_wallet(self, address: str) -> Wallet:
         select_query = "SELECT * FROM wallet WHERE address = ?"
         wallet = self.conn.search(select_query, (address,))
-        if wallet is None:
-            raise WalletDoesNotExistError
+        if len(wallet) == 0:
+            raise WalletDoesNotExistError.custom_exception()
         w = wallet[0]
         return Wallet(w[1], w[0], w[2])
 
@@ -128,7 +128,7 @@ class SQLWalletRepository(IWalletRepository, ICreateDatabase):
         select_query = "SELECT * FROM wallet WHERE api_key = ?"
         wallets = self.conn.search(select_query, (api_key,))
         if wallets is None:
-            raise WalletDoesNotExistError
+            raise WalletDoesNotExistError.custom_exception()
         lst = list()
         for w in wallets:
             lst.append(Wallet(w[1], w[0], w[2]))

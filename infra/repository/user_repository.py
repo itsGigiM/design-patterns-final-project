@@ -44,7 +44,7 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
         query = "UPDATE user SET wallet_number = ? WHERE email = ?"
         params = (str(wallet_num), email)
         if self.conn.execute_query(query, params) == 0:
-            raise CanNotUpdateWalletNumberError
+            raise CanNotUpdateWalletNumberError.custom_exception()
         self.conn.commit()
 
     def get_wallet_number(self, email: str) -> Any:
@@ -67,7 +67,7 @@ class InMemoryUserRepository(IUserRepository, ICreateDatabase):
 
     def create_user(self, email: str) -> str:
         if self.exists_user(email):
-            raise UserExistsError
+            raise UserExistsError.custom_exception()
         self.memory_dict[email] = 0
         return email
 
@@ -76,10 +76,10 @@ class InMemoryUserRepository(IUserRepository, ICreateDatabase):
 
     def set_wallet_number(self, email: str, wallet_num: int) -> None:
         if not self.exists_user(email):
-            raise MailNotValidError
+            raise MailNotValidError.custom_exception()
         self.memory_dict[email] = wallet_num
 
     def get_wallet_number(self, email: str) -> int:
         if not self.exists_user(email):
-            raise MailNotValidError
+            raise MailNotValidError.custom_exception()
         return self.memory_dict[email]

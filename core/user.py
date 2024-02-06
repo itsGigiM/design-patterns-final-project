@@ -32,6 +32,6 @@ class UserFactory(IUserFactory):
 
     def generate_user(self, email: str) -> IUser:
         if self.user_repository.exists_user(email):
-            raise UserExistsError
+            raise UserExistsError.custom_exception()
         self.user_repository.create_user(email)
         return User(api_key=uuid.uuid4())

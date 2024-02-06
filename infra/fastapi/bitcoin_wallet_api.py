@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, Header
 
 from core.model.request.request import TransactionRequest, UserRegistrationRequest
 from core.model.response.response import (
@@ -45,104 +45,74 @@ def get_service() -> BitcoinWalletService:
     responses={500: {"description": "Couldn't register the user"}},
 )
 def register_user(
-    user_data: UserRegistrationRequest, s: BitcoinWalletService = Depends(get_service)
+        user_data: UserRegistrationRequest, s: BitcoinWalletService = Depends(get_service)
 ) -> UserRegistrationResponse:
     try:
         return UserRegistrationResponse(str(s.register_user(user_data.email)))
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.post("/wallets", response_model=WalletResponse)
 def create_wallet(
-    api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
+        api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
 ) -> WalletResponse:
     try:
         res = s.create_wallet(api_key)
         return WalletResponse(str(res.address), res.amount, res.usd_amount)
-    except ValueError as ve:
-        raise HTTPException(status_code=400, detail=str(ve))
-    except KeyError:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Not Found")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.get("/wallets/{address}")
 async def get_wallet_info(
-    address: str,
-    api_key: str = Header(...),
-    s: BitcoinWalletService = Depends(get_service),
+        address: str,
+        api_key: str = Header(...),
+        s: BitcoinWalletService = Depends(get_service),
 ) -> WalletResponse:
     try:
         res = s.get_wallet(address, api_key)
         return WalletResponse(str(res.address), res.amount, res.usd_amount)
-    except ValueError as ve:
-        raise HTTPException(status_code=400, detail=str(ve))
-    except KeyError:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Not Found")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.post("/transactions")
 async def make_transaction(
-    transaction_request: TransactionRequest,
-    api_key: str = Header(...),
-    s: BitcoinWalletService = Depends(get_service),
+        transaction_request: TransactionRequest,
+        api_key: str = Header(...),
+        s: BitcoinWalletService = Depends(get_service),
 ) -> None:
     try:
         s.make_transaction(transaction_request, api_key)
-    except ValueError as ve:
-        raise HTTPException(status_code=400, detail=str(ve))
-    except KeyError:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Not Found")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.get("/transactions")
 async def get_transactions(
-    api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
+        api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
 ) -> TransactionResponse:
     try:
         return TransactionResponse(s.get_transactions(api_key))
-    except ValueError as ve:
-        raise HTTPException(status_code=400, detail=str(ve))
-    except KeyError:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Not Found")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.get("/wallets/{address}/transactions")
 async def get_wallet_transactions(
-    address: str,
-    api_key: str = Header(...),
-    s: BitcoinWalletService = Depends(get_service),
+        address: str,
+        api_key: str = Header(...),
+        s: BitcoinWalletService = Depends(get_service),
 ) -> TransactionResponse:
     try:
         return TransactionResponse(s.get_wallet_transactions(address, api_key))
-    except ValueError as ve:
-        raise HTTPException(status_code=400, detail=str(ve))
-    except KeyError:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Not Found")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise e
 
 
 @app_router.get("/statistics")
 async def get_statistics(
-    api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
+        api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
 ) -> StatisticsResponse:
     return s.get_statistics(api_key)

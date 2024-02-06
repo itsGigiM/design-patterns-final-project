@@ -1,70 +1,170 @@
-class APINotValidError(Exception):
-    pass
+from typing import Protocol
+
+from fastapi import HTTPException, status
 
 
-class UserExistsError(Exception):
-    pass
+class ICustomExceptionFactory(Protocol):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        pass
 
 
-class CanNotConnectToDatabaseError(Exception):
-    pass
+class APINotValidError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail={"error": {"message": "API is not valid"}}
+        )
 
 
-class MailNotValidError(Exception):
-    pass
+class UserExistsError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={"error": {"message": "User already exists"}}
+        )
 
 
-class CanNotUpdateWalletNumberError(Exception):
-    pass
+class CanNotConnectToDatabaseError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot connect to database"}}
+        )
 
 
-class CanNotUpdateWalletBalanceError(Exception):
-    pass
+class MailNotValidError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail={"error": {"message": "Given mail is no valid"}}
+        )
 
 
-class CanNotGetWalletBalanceError(Exception):
-    pass
+class CanNotUpdateWalletNumberError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot update wallet number"}}
+        )
 
 
-class WalletDoesNotExistError(Exception):
-    pass
+class CanNotUpdateWalletBalanceError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot update wallet balance"}}
+        )
 
 
-class UserDoesNotExistError(Exception):
-    pass
+class CanNotGetWalletBalanceError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot get wallet balance"}}
+        )
 
 
-class CanNotGetUserError(Exception):
-    pass
+class WalletDoesNotExistError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={"error": {"message": "Wallet does not exist"}}
+        )
 
 
-class CanNotGetTransactionsError(Exception):
-    pass
+class UserDoesNotExistError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={"error": {"message": "Given user does not exist"}}
+        )
 
 
-class CanNotGetStatisticsError(Exception):
-    pass
+class CanNotGetUserError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Could not get user"}}
+        )
 
 
-class CanNotCreateWalletError(Exception):
-    pass
+class CanNotGetTransactionsError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot get transaction"}}
+        )
 
 
-class TooManyWalletsError(Exception):
-    pass
+class CanNotGetStatisticsError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot get statistics"}}
+        )
 
 
-class UnsuitableAPIKeyError(Exception):
-    pass
+class CanNotCreateWalletError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot create wallet"}}
+        )
 
 
-class IntoSameWalletTransactionError(Exception):
-    pass
+class TooManyWalletsError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Wallet number exceeds 3"}}
+        )
 
 
-class NotEnoughBalanceError(Exception):
-    pass
+class UnsuitableAPIKeyError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail={"error": {"message": "Api key is not suitable"}}
+        )
 
 
-class NoAdminPrivilegesError(Exception):
-    pass
+class IntoSameWalletTransactionError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Cannot transfer to the same wallet"}}
+        )
+
+
+class NotEnoughBalanceError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": {"message": "Not enough balance"}}
+        )
+
+
+class NoAdminPrivilegesError(ICustomExceptionFactory):
+    @staticmethod
+    def custom_exception() -> HTTPException:
+        return HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail={"error": {"message": "Check admin api key"}}
+        )

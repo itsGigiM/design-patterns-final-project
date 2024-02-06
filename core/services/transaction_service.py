@@ -39,13 +39,13 @@ class TransactionService(ITransactionService):
         self, from_wallet: str, to_wallet: str, amount_btc: float
     ) -> None:
         if from_wallet == to_wallet:
-            raise IntoSameWalletTransactionError
+            raise IntoSameWalletTransactionError.custom_exception()
 
         # will throw WalletDoesNotExist if to_wallet does not exist
         self.wallets_repository.get_wallet(to_wallet)
 
         if self.wallets_repository.get_balance(from_wallet) < amount_btc:
-            raise NotEnoughBalanceError
+            raise NotEnoughBalanceError.custom_exception()
 
         from_wallet_owner = self.wallets_repository.get_user(from_wallet)
         to_wallet_owner = self.wallets_repository.get_user(to_wallet)

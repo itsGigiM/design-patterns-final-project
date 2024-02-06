@@ -30,13 +30,13 @@ class WalletService(IWalletService):
 
     def create_wallet(self, api_key: str) -> WalletUSD:
         if len(self.wallet_rep.get_wallets(api_key)) - 1 >= MAX_WALLETS:
-            raise TooManyWalletsError
+            raise TooManyWalletsError.custom_exception()
         address = uuid.uuid4()
         start_b = BTC_STARTING_BALANCE
         if self.wallet_rep.create_wallet(api_key, str(address), start_b):
             wallet = self.wallet_rep.get_wallet(address=str(address))
             return self.adapter.convert(wallet)
-        raise CanNotCreateWalletError
+        raise CanNotCreateWalletError.custom_exception()
 
     def create_default_wallet(self, address: str, api_key: str) -> None:
         self.wallet_rep.create_wallet(api_key, address, DEFAULT_WALLET_BALANCE)
