@@ -115,7 +115,7 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
     def get_statistics(self) -> dict[str, float]:
         total_profit: float = 0
         for transaction in self.transactions:
-            total_profit += transaction.fee_amount
+            total_profit += transaction.fee_amount + transaction.sent_amount
         return {
             "transaction_total_number": len(self.transactions),
             "transaction_total_amount": total_profit,

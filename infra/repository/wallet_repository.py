@@ -24,7 +24,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
         self.wallets: dict[str, Wallet] = dict()
 
     def drop_table(self) -> None:
-        self.wallets = {}
+        self.wallets.clear()
 
     def create_table(self) -> None:
         self.wallets: dict[str, Wallet] = dict()

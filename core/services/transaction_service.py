@@ -72,8 +72,7 @@ class TransactionService(ITransactionService):
             for t in self.transactions_repository.get_wallet_all_transactions(
                 str(w.address)
             ):
-                from_wallet_index = 0
-                if t[from_wallet_index] == w.address:
+                if t.from_wallet_address == w.address:
                     lst.append(t)
         return lst
 
