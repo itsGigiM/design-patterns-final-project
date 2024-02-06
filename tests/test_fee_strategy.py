@@ -1,4 +1,5 @@
 import uuid
+
 from core.constants import BTC_STARTING_BALANCE, SAME_OWNERS_TRANSACTION_FEE
 from infra.fee_strategy import FeeStrategy
 

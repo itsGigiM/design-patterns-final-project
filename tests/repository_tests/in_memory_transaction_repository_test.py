@@ -1,5 +1,3 @@
-from typing import Any
-
 import pytest
 
 from infra.repository.transaction_repository import InMemoryTransactionRepository
@@ -47,17 +45,14 @@ def test_get_all_transactions(transaction_repo: InMemoryTransactionRepository) -
 
 
 def test_get_wallet_all_transactions(
-        transaction_repo: InMemoryTransactionRepository,
+    transaction_repo: InMemoryTransactionRepository,
 ) -> None:
     result = transaction_repo.get_wallet_all_transactions(TO)
     assert result == []
     transaction_repo.create_transaction(FROM, TO, 100, 5)
     transaction_repo.create_transaction(FROM, TO, 20, 5)
     result = transaction_repo.get_wallet_all_transactions(TO)
-    expected_results = [
-        (FROM, TO, 100, 5, 105),
-        (FROM, TO, 20, 5, 25)
-    ]
+    expected_results = [(FROM, TO, 100, 5, 105), (FROM, TO, 20, 5, 25)]
 
     assert len(result) == len(expected_results)
     for transaction, expected in zip(result, expected_results):
