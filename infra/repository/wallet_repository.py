@@ -21,6 +21,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
 
     def __init__(self, converter: IBTCtoUSDConverter):
         self.converter = converter
+        self.wallets: dict[str, Wallet] = dict()
 
     def drop_table(self) -> None:
         self.wallets = {}
@@ -58,7 +59,7 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
     def get_wallets(self, api_key: str) -> list[Wallet]:
         lst = []
         for address, wallet in self.wallets.items():
-            if wallet.api_key == api_key:
+            if str(wallet.api_key) == api_key:
                 lst.append(wallet)
         return lst
 
