@@ -7,7 +7,7 @@ from core.constants import ADMIN_API_KEY, DEFAULT_WALLET_PREFIX
 from core.exceptions import (
     APINotValidError,
     NoAdminPrivilegesError,
-    UnsuitableAPIKeyError, WalletDoesNotExistError,
+    UnsuitableAPIKeyError,
 )
 from core.model.request.request import TransactionRequest
 from core.model.response.response import StatisticsResponse
@@ -19,10 +19,10 @@ from core.wallet import WalletUSD
 
 class BitcoinWalletService:
     def __init__(
-            self,
-            user_service: IUserService,
-            wallet_service: IWalletService,
-            transaction_service: ITransactionService,
+        self,
+        user_service: IUserService,
+        wallet_service: IWalletService,
+        transaction_service: ITransactionService,
     ):
         self.user_service = user_service
         self.wallet_service = wallet_service
