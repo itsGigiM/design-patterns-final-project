@@ -39,4 +39,4 @@ def test_get_statistics(transaction_repo: SQLTransactionRepository) -> None:
     transaction_repo.create_transaction("from", "to", 100, 5)
     transaction_repo.create_transaction("from", "to", 20, 5)
     result = transaction_repo.get_statistics()
-    assert result == {"transaction_total_number": 2, "transaction_total_amount": 130}
+    assert result == {"transaction_total_number": 2, "transaction_total_amount": 10}

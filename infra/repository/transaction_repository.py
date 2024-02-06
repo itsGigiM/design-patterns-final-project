@@ -68,7 +68,7 @@ class SQLTransactionRepository(ITransactionRepository, ICreateDatabase):
         return transactions
 
     def get_statistics(self) -> dict[str, float]:
-        select_query = "SELECT SUM(total), COUNT(*) FROM transactions"
+        select_query = "SELECT SUM(fee), COUNT(*) FROM transactions"
         res = self.conn.search(select_query)[0]
         if res is None:
             raise CanNotGetStatisticsError.custom_exception()
@@ -115,7 +115,7 @@ class InMemoryTransactionRepository(ITransactionRepository, ICreateDatabase):
     def get_statistics(self) -> dict[str, float]:
         total_profit: float = 0
         for transaction in self.transactions:
-            total_profit += transaction.fee_amount + transaction.sent_amount
+            total_profit += transaction.fee_amount
         return {
             "transaction_total_number": len(self.transactions),
             "transaction_total_amount": total_profit,
