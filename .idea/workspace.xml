@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="342d8103-5863-4783-bdb4-9ab62006ac75" name="Changes" comment="InMemoryWalletRep1">
-      <change beforePath="$PROJECT_DIR$/tests/user_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/user_tests.py" afterDir="false" />
+    <list default="true" id="342d8103-5863-4783-bdb4-9ab62006ac75" name="Changes" comment="wrote WalletService">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/bitcoin_wallet_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/bitcoin_wallet_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +73,8 @@
       <workItem from="1707047983334" duration="242000" />
       <workItem from="1707048365956" duration="4669000" />
       <workItem from="1707062987977" duration="672000" />
-      <workItem from="1707137690198" duration="33000" />
+      <workItem from="1707137690198" duration="4348000" />
+      <workItem from="1707152485010" duration="1065000" />
     </task>
     <task id="LOCAL-00001" summary="wrote wallet.py">
       <option name="closed" value="true" />
@@ -121,7 +124,31 @@
       <option name="project" value="LOCAL" />
       <updated>1707051769528</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="InMemoryWalletRep12">
+      <option name="closed" value="true" />
+      <created>1707137861769</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707137861769</updated>
+    </task>
+    <task id="LOCAL-00008" summary="InMemoryWalletRep12">
+      <option name="closed" value="true" />
+      <created>1707137928709</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1707137928709</updated>
+    </task>
+    <task id="LOCAL-00009" summary="wrote WalletService">
+      <option name="closed" value="true" />
+      <created>1707141322504</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1707141322504</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,7 +172,9 @@
     <MESSAGE value="wrote walleta" />
     <MESSAGE value="InMemoryWalletRep" />
     <MESSAGE value="InMemoryWalletRep1" />
-    <option name="LAST_COMMIT_MESSAGE" value="InMemoryWalletRep1" />
+    <MESSAGE value="InMemoryWalletRep12" />
+    <MESSAGE value="wrote WalletService" />
+    <option name="LAST_COMMIT_MESSAGE" value="wrote WalletService" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/design_patterns_final_project$BTCtoUSDconverter.coverage" NAME="BTCtoUSDconverter Coverage Results" MODIFIED="1706955031784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />

@@ -43,7 +43,7 @@ class BitcoinWalletService:
 
     def get_transactions(self, api_key: str) -> TransactionResponse:
         pass
-
+    
     def get_wallet_transactions(self, address: str, api_key: str) -> TransactionResponse:
         pass
 
