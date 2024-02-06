@@ -1,8 +1,8 @@
 import uuid
 from typing import Protocol
 
-from core.constants import BTC_STARTING_BALANCE, DEFAULT_WALLET_BALANCE
-from core.exceptions import CanNotCreateWalletError
+from core.constants import BTC_STARTING_BALANCE, DEFAULT_WALLET_BALANCE, MAX_WALLETS
+from core.exceptions import CanNotCreateWalletError, TooManyWalletsError
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import WalletUSD
 from core.walletToWalletUSDAdapter import IWalletToWalletUSDAdapter
@@ -29,6 +29,8 @@ class WalletService(IWalletService):
         self.adapter = adapter
 
     def create_wallet(self, api_key: str) -> WalletUSD:
+        if len(self.wallet_rep.get_wallets(api_key)) - 1 >= MAX_WALLETS:
+            raise TooManyWalletsError
         address = uuid.uuid4()
         start_b = BTC_STARTING_BALANCE
         if self.wallet_rep.create_wallet(api_key, str(address), start_b):

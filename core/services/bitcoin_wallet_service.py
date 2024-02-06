@@ -1,13 +1,17 @@
 from typing import Any
 from uuid import UUID
 
-from core.constants import DEFAULT_WALLET_PREFIX
-from core.exceptions import APINotValidError
+from core.constants import ADMIN_API_KEY, DEFAULT_WALLET_PREFIX
+from core.exceptions import (
+    APINotValidError,
+    NoAdminPrivilegesError,
+    UnsuitableAPIKeyError,
+)
 from core.model.request.request import TransactionRequest
 from core.model.response.response import StatisticsResponse
-from core.services.transaction_service_interface import ITransactionService
-from core.services.user_service_interface import IUserService
-from core.services.wallet_service_interface import IWalletService
+from core.services.transaction_service import ITransactionService
+from core.services.user_service import IUserService
+from core.services.wallet_service import IWalletService
 from core.wallet import WalletUSD
 
 
@@ -42,11 +46,17 @@ class BitcoinWalletService:
 
     def get_wallet(self, address: str, api_key: str) -> WalletUSD:
         if self.validate_api_key(api_key):
-            return self.wallet_service.get_wallet(address)
+            wallet = self.wallet_service.get_wallet(address)
+            if str(wallet.api_key) != api_key:
+                raise UnsuitableAPIKeyError
+            return wallet
         raise APINotValidError
 
     def make_transaction(self, r: TransactionRequest, api_key: str) -> None:
         if self.validate_api_key(api_key):
+            from_wal = self.get_wallet(r.from_wallet, api_key)
+            if str(from_wal.api_key) != api_key:
+                raise UnsuitableAPIKeyError
             self.transaction_service.create_transaction(
                 r.from_wallet, r.to_wallet, r.amount_btc
             )
@@ -59,9 +69,14 @@ class BitcoinWalletService:
 
     def get_wallet_transactions(self, address: str, api_key: str) -> list[Any]:
         if self.validate_api_key(api_key):
+            wal = self.get_wallet(address, api_key)
+            if str(wal.api_key) != api_key:
+                raise UnsuitableAPIKeyError
             return self.transaction_service.get_wallet_transactions(api_key, address)
         raise APINotValidError
 
-    def get_statistics(self) -> StatisticsResponse:
+    def get_statistics(self, api_key: str) -> StatisticsResponse:
+        if api_key != ADMIN_API_KEY:
+            raise NoAdminPrivilegesError
         res = self.transaction_service.get_statistics()
         return StatisticsResponse(res["amount"], res["sum"])

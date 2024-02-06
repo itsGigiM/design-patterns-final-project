@@ -1,5 +1,6 @@
 from typing import Any, Protocol
 
+from core.exceptions import IntoSameWalletTransactionError, NotEnoughBalanceError
 from core.repository_interface.transaction_repository_interface import (
     ITransactionRepository,
 )
@@ -37,11 +38,21 @@ class TransactionService(ITransactionService):
     def create_transaction(
         self, from_wallet: str, to_wallet: str, amount_btc: float
     ) -> None:
+        if from_wallet == to_wallet:
+            raise IntoSameWalletTransactionError
+
+        # will throw WalletDoesNotExist if to_wallet does not exist
+        self.wallets_repository.get_wallet(to_wallet)
+
+        if self.wallets_repository.get_balance(from_wallet) < amount_btc:
+            raise NotEnoughBalanceError
+
         from_wallet_owner = self.wallets_repository.get_user(from_wallet)
         to_wallet_owner = self.wallets_repository.get_user(to_wallet)
         transaction_fee = self.fee_strategy.calculate_transaction_fee(
             amount_btc, from_wallet_owner, to_wallet_owner
         )
+
         sent_amount = amount_btc - transaction_fee
         self.transactions_repository.create_transaction(
             from_wallet, to_wallet, sent_amount, transaction_fee
@@ -67,6 +78,9 @@ class TransactionService(ITransactionService):
         return lst
 
     def get_wallet_transactions(self, api_key: str, address: str) -> list[Any]:
+        # will throw WalletDoesNotExist error if the wallet doesn't exist
+        self.wallets_repository.get_wallet(address)
+
         lst = list()
         for t in self.transactions_repository.get_wallet_all_transactions(address):
             lst.append(t)

@@ -1,8 +1,5 @@
 from fastapi import APIRouter, Depends, Header, HTTPException
 
-from core.services.bitcoin_wallet_service import BitcoinWalletService
-from infra.BTCtoUSDconverter import BTCtoUSDConverter
-from core.constants import ADMIN_API_KEY
 from core.model.request.request import TransactionRequest, UserRegistrationRequest
 from core.model.response.response import (
     StatisticsResponse,
@@ -10,11 +7,13 @@ from core.model.response.response import (
     UserRegistrationResponse,
     WalletResponse,
 )
-from core.services.transaction_service_interface import TransactionService
-from core.services.user_service_interface import UserService
-from core.services.wallet_service_interface import WalletService
+from core.services.bitcoin_wallet_service import BitcoinWalletService
+from core.services.transaction_service import TransactionService
+from core.services.user_service import UserService
+from core.services.wallet_service import WalletService
 from core.user import UserFactory
 from core.walletToWalletUSDAdapter import WalletToUSDWalletAdapter
+from infra.BTCtoUSDconverter import BTCtoUSDConverter
 from infra.fee_strategy import FeeStrategy
 from infra.repository.database_connection import DatabaseConnection
 from infra.repository.database_executor import DatabaseExecutor
@@ -79,8 +78,6 @@ async def get_wallet_info(
 ) -> WalletResponse:
     try:
         res = s.get_wallet(address, api_key)
-        if res.api_key != api_key:
-            raise HTTPException(status_code=403, detail="Forbidden")
         return WalletResponse(str(res.address), res.amount, res.usd_amount)
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
@@ -148,6 +145,4 @@ async def get_wallet_transactions(
 async def get_statistics(
     api_key: str = Header(...), s: BitcoinWalletService = Depends(get_service)
 ) -> StatisticsResponse:
-    if api_key != ADMIN_API_KEY:
-        raise HTTPException(status_code=403, detail="Access denied.")
-    return s.get_statistics()
+    return s.get_statistics(api_key)

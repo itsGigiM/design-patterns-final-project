@@ -2,7 +2,6 @@ import copy
 import uuid
 from typing import Any
 
-from infra.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.exceptions import (
     CanNotGetUserError,
     CanNotGetWalletBalanceError,
@@ -13,6 +12,7 @@ from core.repository_interface.create_database_repository import ICreateDatabase
 from core.repository_interface.database_executor_interface import IDatabaseExecutor
 from core.repository_interface.wallet_repository_interface import IWalletRepository
 from core.wallet import Wallet
+from infra.BTCtoUSDconverter import IBTCtoUSDConverter
 
 
 class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
@@ -49,8 +49,11 @@ class InMemoryWalletRepository(IWalletRepository, ICreateDatabase):
         return str(self.wallets[address].api_key)
 
     def get_wallet(self, address: str) -> Wallet:
-        our_wallet = self.wallets[address]
-        return copy.copy(our_wallet)
+        if address in self.wallets:
+            our_wallet = self.wallets[address]
+            return copy.copy(our_wallet)
+
+        raise WalletDoesNotExistError
 
     def get_wallets(self, api_key: str) -> list[Wallet]:
         lst = []

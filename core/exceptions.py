@@ -48,3 +48,23 @@ class CanNotGetStatisticsError(Exception):
 
 class CanNotCreateWalletError(Exception):
     pass
+
+
+class TooManyWalletsError(Exception):
+    pass
+
+
+class UnsuitableAPIKeyError(Exception):
+    pass
+
+
+class IntoSameWalletTransactionError(Exception):
+    pass
+
+
+class NotEnoughBalanceError(Exception):
+    pass
+
+
+class NoAdminPrivilegesError(Exception):
+    pass
