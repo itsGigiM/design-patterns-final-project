@@ -17,25 +17,25 @@ def test_create_user() -> None:
 
 
 def test_create_user_duplicate_email(user_repo: InMemoryUserRepository) -> None:
-    email = "test@example.com"
+    email = "duplicate@example.com"
     user_repo.create_user(email)
     with pytest.raises(Exception):
         user_repo.create_user(email)
 
 
 def test_exists_user(user_repo: InMemoryUserRepository) -> None:
-    email = "mk@gmail.com"
+    email = "exists@gmail.com"
     user_repo.create_user(email)
     assert user_repo.exists_user(email) is True
 
 
 def test_exists_user_nonexistent(user_repo: InMemoryUserRepository) -> None:
-    email = "kk@gmail.com"
+    email = "doesnotexist@gmail.com"
     assert user_repo.exists_user(email) is False
 
 
 def test_set_wallet_number(user_repo: InMemoryUserRepository) -> None:
-    email = "kk@gmail.com"
+    email = "wallets@gmail.com"
     wallet_num = 1
     user_repo.create_user(email)
     user_repo.set_wallet_number(email, wallet_num)
