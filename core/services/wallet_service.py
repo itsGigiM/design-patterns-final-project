@@ -20,7 +20,6 @@ class IWalletService(Protocol):
 
 
 class WalletService(IWalletService):
-
     def __init__(
         self, wallet_repository: IWalletRepository, adapter: IWalletToWalletUSDAdapter
     ):
