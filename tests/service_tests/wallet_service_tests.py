@@ -14,7 +14,7 @@ class StubConverter:
         pass
 
 
-def test_create_wallet_success():
+def test_create_wallet_success() -> None:
     converter = BTCtoUSDConverter()
     walleter = WalletToUSDWalletAdapter(converter)
     wallet_repository = InMemoryWalletRepository(converter)
@@ -30,7 +30,7 @@ def test_create_wallet_success():
     assert wallet.api_key == TEST_UUID
 
 
-def test_create_wallet_more_than_limit():
+def test_create_wallet_more_than_limit() -> None:
     converter = BTCtoUSDConverter()
     walleter = WalletToUSDWalletAdapter(converter)
     wallet_repository = InMemoryWalletRepository(converter)

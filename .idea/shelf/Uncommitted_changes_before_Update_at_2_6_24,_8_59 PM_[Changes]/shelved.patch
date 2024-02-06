@@ -1,0 +1,217 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"bab527b4-28b4-464b-b4e7-76cbf1a392d1\" name=\"Changes\" comment=\"wrote WalletService\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"node.js.selected.package.tslint\": \"(autodetect)\"\n  }\n}]]></component>\n  <component name=\"RunManager\" selected=\"Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions\">\n    <configuration name=\"Python tests for in_memory_transaction_repository_test.test_create_Transaction\" type=\"tests\" factoryName=\"Autodetect\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"design-patterns-final-project\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/tests/repository_tests\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\n      <option name=\"_new_target\" value=\"&quot;in_memory_transaction_repository_test.test_create_Transaction&quot;\" />\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Python tests for in_memory_transaction_repository_test.test_get_all_transactions\" type=\"tests\" factoryName=\"Autodetect\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"design-patterns-final-project\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/tests/repository_tests\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\n      <option name=\"_new_target\" value=\"&quot;in_memory_transaction_repository_test.test_get_all_transactions&quot;\" />\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Python tests for in_memory_transaction_repository_test.test_get_statistics\" type=\"tests\" factoryName=\"Autodetect\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"design-patterns-final-project\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/tests/repository_tests\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\n      <option name=\"_new_target\" value=\"&quot;in_memory_transaction_repository_test.test_get_statistics&quot;\" />\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Python tests for in_memory_transaction_repository_test.test_get_wallet_all_transactions\" type=\"tests\" factoryName=\"Autodetect\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"design-patterns-final-project\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/tests/repository_tests\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\n      <option name=\"_new_target\" value=\"&quot;in_memory_transaction_repository_test.test_get_wallet_all_transactions&quot;\" />\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions\" />\n        <item itemvalue=\"Python tests.Python tests for in_memory_transaction_repository_test.test_create_Transaction\" />\n        <item itemvalue=\"Python tests.Python tests for in_memory_transaction_repository_test.test_get_statistics\" />\n        <item itemvalue=\"Python tests.Python tests for in_memory_transaction_repository_test.test_get_wallet_all_transactions\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"TaskManager\">\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"wrote WalletService\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"wrote WalletService\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/design_patterns_final_project$.coverage\" NAME=\" Coverage Results\" MODIFIED=\"1707226281317\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/tests/repository_tests\" />\n    <SUITE FILE_PATH=\"coverage/design_patterns_final_project$BTCtoUSDconverter.coverage\" NAME=\"BTCtoUSDconverter Coverage Results\" MODIFIED=\"1706955031784\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/core\" />\n    <SUITE FILE_PATH=\"coverage/design_patterns_final_project$wallet.coverage\" NAME=\"wallet Coverage Results\" MODIFIED=\"1706955057462\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/core\" />\n  </component>\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,7 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bab527b4-28b4-464b-b4e7-76cbf1a392d1" name="Changes" comment="wrote WalletService" />
++    <list default="true" id="bab527b4-28b4-464b-b4e7-76cbf1a392d1" name="Changes" comment="found bug in in mem transaction test 2">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/core/services/transaction_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/transaction_service.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/infra/repository/transaction_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/infra/repository/transaction_repository.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/infra/repository/wallet_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/infra/repository/wallet_repository.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/tests/repository_tests/in_memory_transaction_repository_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/repository_tests/in_memory_transaction_repository_test.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/tests/service_tests/transaction_service_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/service_tests/transaction_service_tests.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -17,90 +24,172 @@
+       </list>
+     </option>
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN",
++    "assignee": "MariamRatiani"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="c0425065-bef5-484d-b5fc-e0f571cfa039" />
++        <option name="url" value="https://github.com/itsGigiM/design-patterns-final-project.git" />
++      </UrlAndAccount>
++    </option>
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProjectColorInfo"><![CDATA[{
++  "associatedIndex": 4
++}]]></component>
++  <component name="ProjectId" id="2bzr8RyCe5x2GIr7RmnvmAgbP49" />
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+-    "node.js.selected.package.tslint": "(autodetect)"
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "git-widget-placeholder": "main",
++    "node.js.detected.package.eslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
+-  <component name="RunManager" selected="Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions">
+-    <configuration name="Python tests for in_memory_transaction_repository_test.test_create_Transaction" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++  <component name="RunManager">
++    <configuration name="Python tests for transaction_service_tests.TestTransactionService.test_create_transaction_into_same_wallet" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+       <module name="design-patterns-final-project" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/repository_tests" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/service_tests" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="_new_additionalArguments" value="&quot;&quot;" />
+-      <option name="_new_target" value="&quot;in_memory_transaction_repository_test.test_create_Transaction&quot;" />
++      <option name="_new_target" value="&quot;transaction_service_tests.TestTransactionService.test_create_transaction_into_same_wallet&quot;" />
+       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="Python tests for in_memory_transaction_repository_test.test_get_all_transactions" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++    <configuration name="Python tests for transaction_service_tests.TestTransactionService.test_create_transaction_not_enough_balance" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+       <module name="design-patterns-final-project" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/repository_tests" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/service_tests" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="_new_additionalArguments" value="&quot;&quot;" />
+-      <option name="_new_target" value="&quot;in_memory_transaction_repository_test.test_get_all_transactions&quot;" />
++      <option name="_new_target" value="&quot;transaction_service_tests.TestTransactionService.test_create_transaction_not_enough_balance&quot;" />
+       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="Python tests for in_memory_transaction_repository_test.test_get_statistics" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++    <configuration name="Python tests for transaction_service_tests.test_create_transaction" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+       <module name="design-patterns-final-project" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/repository_tests" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/service_tests" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="_new_additionalArguments" value="&quot;&quot;" />
+-      <option name="_new_target" value="&quot;in_memory_transaction_repository_test.test_get_statistics&quot;" />
++      <option name="_new_target" value="&quot;transaction_service_tests.test_create_transaction&quot;" />
+       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="Python tests for in_memory_transaction_repository_test.test_get_wallet_all_transactions" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++    <configuration name="Python tests for transaction_service_tests.test_get_statistics" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+       <module name="design-patterns-final-project" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/repository_tests" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/service_tests" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="_new_additionalArguments" value="&quot;&quot;" />
+-      <option name="_new_target" value="&quot;in_memory_transaction_repository_test.test_get_wallet_all_transactions&quot;" />
++      <option name="_new_target" value="&quot;transaction_service_tests.test_get_statistics&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="Python tests for transaction_service_tests.test_get_transactions" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++      <module name="design-patterns-final-project" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/service_tests" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;transaction_service_tests.test_get_transactions&quot;" />
+       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+       <method v="2" />
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_all_transactions" />
+-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_create_Transaction" />
+-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_statistics" />
+-        <item itemvalue="Python tests.Python tests for in_memory_transaction_repository_test.test_get_wallet_all_transactions" />
++        <item itemvalue="Python tests.Python tests for transaction_service_tests.test_get_statistics" />
++        <item itemvalue="Python tests.Python tests for transaction_service_tests.test_get_transactions" />
++        <item itemvalue="Python tests.Python tests for transaction_service_tests.test_create_transaction" />
++        <item itemvalue="Python tests.Python tests for transaction_service_tests.TestTransactionService.test_create_transaction_not_enough_balance" />
++        <item itemvalue="Python tests.Python tests for transaction_service_tests.TestTransactionService.test_create_transaction_into_same_wallet" />
+       </list>
+     </recent_temporary>
+   </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="bab527b4-28b4-464b-b4e7-76cbf1a392d1" name="Changes" comment="wrote WalletService" />
++      <created>1707228590585</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1707228590585</updated>
++      <workItem from="1707228593066" duration="7752000" />
++    </task>
++    <task id="LOCAL-00001" summary="found bug in in mem transaction test">
++      <option name="closed" value="true" />
++      <created>1707228617454</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1707228617454</updated>
++    </task>
++    <task id="LOCAL-00002" summary="found bug in in mem transaction test 2">
++      <option name="closed" value="true" />
++      <created>1707228899014</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1707228899014</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
++  </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="wrote WalletService" />
+-    <option name="LAST_COMMIT_MESSAGE" value="wrote WalletService" />
++    <MESSAGE value="found bug in in mem transaction test" />
++    <MESSAGE value="found bug in in mem transaction test 2" />
++    <option name="LAST_COMMIT_MESSAGE" value="found bug in in mem transaction test 2" />
+   </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/design_patterns_final_project$.coverage" NAME=" Coverage Results" MODIFIED="1707226281317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/repository_tests" />
++    <SUITE FILE_PATH="coverage/design_patterns_final_project$.coverage" NAME=" Coverage Results" MODIFIED="1707238479981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/service_tests" />
+     <SUITE FILE_PATH="coverage/design_patterns_final_project$BTCtoUSDconverter.coverage" NAME="BTCtoUSDconverter Coverage Results" MODIFIED="1706955031784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+     <SUITE FILE_PATH="coverage/design_patterns_final_project$wallet.coverage" NAME="wallet Coverage Results" MODIFIED="1706955057462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+   </component>

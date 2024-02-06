@@ -12,18 +12,21 @@ WALLETS_REPO = InMemoryWalletRepository(CONVERTER)
 FROM = "12345678-1234-5678-1234-567812345678"
 TO = "87654321-4321-6789-4321-987654321098"
 
-SERVICE = TransactionService(transactions_repository=TRANSACTION_REPO,
-                             fee_strategy=FREE_STRATEGY, wallets_repository=WALLETS_REPO)
+SERVICE = TransactionService(
+    transactions_repository=TRANSACTION_REPO,
+    fee_strategy=FREE_STRATEGY,
+    wallets_repository=WALLETS_REPO,
+)
 
 
-def test_create_transaction():
+def test_create_transaction() -> None:
     WALLETS_REPO.create_table()
     WALLETS_REPO.create_wallet(FROM, FROM, 1000)
     WALLETS_REPO.create_wallet(TO, TO, 1000)
     SERVICE.create_transaction(FROM, TO, 100)
 
 
-def test_get_transactions():
+def test_get_transactions() -> None:
     WALLETS_REPO.create_table()
     WALLETS_REPO.create_wallet(FROM, FROM, 1000)
     WALLETS_REPO.create_wallet(TO, TO, 1000)
@@ -37,7 +40,7 @@ def test_get_transactions():
     assert found_transaction is True
 
 
-def test_get_wallet_transactions():
+def test_get_wallet_transactions() -> None:
     WALLETS_REPO.create_table()
     WALLETS_REPO.create_wallet(FROM, FROM, 1000)
     WALLETS_REPO.create_wallet(TO, TO, 1000)
@@ -51,7 +54,7 @@ def test_get_wallet_transactions():
     assert any(str(t.to_wallet_address) == TO for t in to_wallet_transactions)
 
 
-def test_get_statistics():
+def test_get_statistics() -> None:
     WALLETS_REPO.drop_table()
     WALLETS_REPO.create_table()
     TRANSACTION_REPO.drop_table()
