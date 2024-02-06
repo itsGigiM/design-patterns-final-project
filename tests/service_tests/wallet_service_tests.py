@@ -9,11 +9,6 @@ from infra.BTCtoUSDconverter import BTCtoUSDConverter
 from infra.repository.wallet_repository import InMemoryWalletRepository
 
 
-class StubConverter:
-    def convert(self, wallet) -> WalletUSD:
-        pass
-
-
 def test_create_wallet_success() -> None:
     converter = BTCtoUSDConverter()
     walleter = WalletToUSDWalletAdapter(converter)
