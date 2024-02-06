@@ -1,5 +1,3 @@
-from typing import Any
-
 import pytest
 
 from infra.repository.transaction_repository import InMemoryTransactionRepository
