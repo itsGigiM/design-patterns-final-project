@@ -1,4 +1,5 @@
 import uuid
+from typing import Protocol
 
 from core.services.user_service import UserService
 from core.user import UserFactory
