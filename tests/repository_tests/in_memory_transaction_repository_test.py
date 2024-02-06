@@ -31,14 +31,14 @@ def test_get_all_transactions(transaction_repo: InMemoryTransactionRepository) -
 
     assert len(result) == 2
 
-    # Check details of the first transaction
+    # the first transaction
     assert str(result[0].from_wallet_address) == FROM
     assert str(result[0].to_wallet_address) == TO
     assert result[0].sent_amount == 100
     assert result[0].fee_amount == 5
     assert result[0].total_amount == 105
 
-    # Check details of the second transaction
+    # the second transaction
     assert str(result[1].from_wallet_address) == FROM
     assert str(result[1].to_wallet_address) == FROM
     assert result[1].sent_amount == 20
@@ -71,8 +71,8 @@ def test_get_wallet_all_transactions(
 def test_get_statistics(transaction_repo: InMemoryTransactionRepository) -> None:
     transaction_repo.drop_table()
     transaction_repo.create_table()
-    transaction_repo.create_transaction(FROM, TO, 100, 5)  # Total amount 105, fee 5
-    transaction_repo.create_transaction(FROM, TO, 20, 5)  # Total amount 25, fee 5
+    transaction_repo.create_transaction(FROM, TO, 100, 5)
+    transaction_repo.create_transaction(FROM, TO, 20, 5)
     result = transaction_repo.get_statistics()
 
     assert result["transaction_total_number"] == 2
