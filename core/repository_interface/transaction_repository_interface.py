@@ -13,5 +13,5 @@ class ITransactionRepository(Protocol):
     def get_wallet_all_transactions(self, wallet: str) -> Any:
         pass
 
-    def get_statistics(self) -> dict[str, Any]:
+    def get_statistics(self) -> dict[str, float]:
         pass

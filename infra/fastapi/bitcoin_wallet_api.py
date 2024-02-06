@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Header, HTTPException
 
-from core.bitcoin_wallet_service import BitcoinWalletService
-from core.BTCtoUSDconverter import BTCtoUSDConverter
+from core.services.bitcoin_wallet_service import BitcoinWalletService
+from infra.BTCtoUSDconverter import BTCtoUSDConverter
 from core.constants import ADMIN_API_KEY
 from core.model.request.request import TransactionRequest, UserRegistrationRequest
 from core.model.response.response import (
@@ -10,9 +10,9 @@ from core.model.response.response import (
     UserRegistrationResponse,
     WalletResponse,
 )
-from core.service_interface.transaction_service_interface import TransactionService
-from core.service_interface.user_service_interface import UserService
-from core.service_interface.wallet_service_interface import WalletService
+from core.services.transaction_service_interface import TransactionService
+from core.services.user_service_interface import UserService
+from core.services.wallet_service_interface import WalletService
 from core.user import UserFactory
 from core.walletToWalletUSDAdapter import WalletToUSDWalletAdapter
 from infra.fee_strategy import FeeStrategy

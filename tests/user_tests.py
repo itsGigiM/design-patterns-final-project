@@ -3,7 +3,7 @@ import uuid
 import pytest
 
 from core.repository_interface.user_repository_interface import IUserRepository
-from core.service_interface.user_service_interface import UserService
+from core.services.user_service_interface import UserService
 from core.user import User, UserFactory
 from infra.repository.user_repository import InMemoryUserRepository
 

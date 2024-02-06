@@ -5,9 +5,9 @@ from core.constants import DEFAULT_WALLET_PREFIX
 from core.exceptions import APINotValidError
 from core.model.request.request import TransactionRequest
 from core.model.response.response import StatisticsResponse
-from core.service_interface.transaction_service_interface import ITransactionService
-from core.service_interface.user_service_interface import IUserService
-from core.service_interface.wallet_service_interface import IWalletService
+from core.services.transaction_service_interface import ITransactionService
+from core.services.user_service_interface import IUserService
+from core.services.wallet_service_interface import IWalletService
 from core.wallet import WalletUSD
 
 

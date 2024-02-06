@@ -2,7 +2,7 @@ import copy
 import uuid
 from typing import Any
 
-from core.BTCtoUSDconverter import IBTCtoUSDConverter
+from infra.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.exceptions import (
     CanNotGetUserError,
     CanNotGetWalletBalanceError,

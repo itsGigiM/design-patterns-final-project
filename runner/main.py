@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from runner.bitcoin_wallet_api import app_router
+from infra.fastapi.bitcoin_wallet_api import app_router
 
 
 def setup() -> FastAPI:

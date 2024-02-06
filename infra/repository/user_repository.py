@@ -54,7 +54,7 @@ class SQLUserRepository(IUserRepository, ICreateDatabase):
 
 
 class InMemoryUserRepository(IUserRepository, ICreateDatabase):
-    memory_dict: dict[Any, Any]
+    memory_dict: dict[str, int]
 
     def __init__(self) -> None:
         self.memory_dict = {}
@@ -79,7 +79,7 @@ class InMemoryUserRepository(IUserRepository, ICreateDatabase):
             raise MailNotValidError
         self.memory_dict[email] = wallet_num
 
-    def get_wallet_number(self, email: str) -> Any:
+    def get_wallet_number(self, email: str) -> int:
         if not self.exists_user(email):
             raise MailNotValidError
         return self.memory_dict[email]

@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from core.BTCtoUSDconverter import IBTCtoUSDConverter
+from infra.BTCtoUSDconverter import IBTCtoUSDConverter
 from core.wallet import IWallet, WalletUSD
 
 
