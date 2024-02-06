@@ -65,7 +65,8 @@ class BitcoinWalletService:
             self.transaction_service.create_transaction(
                 r.from_wallet, r.to_wallet, r.amount_btc
             )
-        raise APINotValidError.custom_exception()
+        else:
+            raise APINotValidError.custom_exception()
 
     def get_transactions(self, api_key: str) -> list[Any]:
         if self.validate_api_key(api_key):
