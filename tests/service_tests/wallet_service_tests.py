@@ -1,3 +1,4 @@
+
 import pytest
 from fastapi import HTTPException
 
@@ -7,11 +8,6 @@ from core.wallet import WalletUSD
 from core.walletToWalletUSDAdapter import WalletToUSDWalletAdapter
 from infra.BTCtoUSDconverter import BTCtoUSDConverter
 from infra.repository.wallet_repository import InMemoryWalletRepository
-
-
-class StubConverter:
-    def convert(self, wallet) -> WalletUSD:
-        pass
 
 
 def test_create_wallet_success() -> None:

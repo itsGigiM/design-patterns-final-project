@@ -5,6 +5,7 @@ from core.wallet import Wallet
 
 
 class IWalletRepository(Protocol):
+
     def create_wallet(
         self, api_key: str, address: str, btc_balance: float = BTC_STARTING_BALANCE
     ) -> bool:

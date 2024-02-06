@@ -1,4 +1,5 @@
 import uuid
+from typing import Protocol
 
 from core.repository_interface.user_repository_interface import IUserRepository
 from core.services.user_service import UserService

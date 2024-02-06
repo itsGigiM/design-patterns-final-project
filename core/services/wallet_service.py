@@ -20,14 +20,12 @@ class IWalletService(Protocol):
 
 
 class WalletService(IWalletService):
-    wallet_rep: IWalletRepository
 
     def __init__(
         self, wallet_repository: IWalletRepository, adapter: IWalletToWalletUSDAdapter
     ):
         self.wallet_rep = wallet_repository
         self.adapter = adapter
-        self.wallet_rep.create_table()
 
     def create_wallet(self, api_key: str) -> WalletUSD:
         if len(self.wallet_rep.get_wallets(api_key)) - 1 >= MAX_WALLETS:
